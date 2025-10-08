@@ -123,6 +123,16 @@ class RolePermissionSeeder extends Seeder
         ]);
         $superAdminUser->assignRole($superAdmin);
 
+        // Create Main Admin User (admin@school.com)
+        $mainAdmin = User::create([
+            'name' => 'School Admin',
+            'email' => 'admin@school.com',
+            'password' => Hash::make('password'),
+            'phone' => '1234567899',
+            'status' => 'active',
+        ]);
+        $mainAdmin->assignRole($admin);
+
         // Create Demo Users for Each Role
         
         // Demo Admin
