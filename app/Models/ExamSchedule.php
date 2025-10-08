@@ -5,32 +5,36 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Attendance extends Model
+class ExamSchedule extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'attendable_type',
-        'attendable_id',
+        'exam_id',
         'class_id',
         'section_id',
         'subject_id',
-        'date',
-        'status',
-        'remarks',
-        'marked_by',
+        'exam_date',
+        'start_time',
+        'end_time',
+        'total_marks',
+        'passing_marks',
+        'room_number',
+        'instructions',
     ];
 
     protected $casts = [
-        'date' => 'date',
+        'exam_date' => 'date',
+        'total_marks' => 'integer',
+        'passing_marks' => 'integer',
     ];
 
     /**
-     * Get the attendable model (Student or Teacher)
+     * Get the exam
      */
-    public function attendable()
+    public function exam()
     {
-        return $this->morphTo();
+        return $this->belongsTo(Exam::class);
     }
 
     /**
@@ -46,7 +50,7 @@ class Attendance extends Model
      */
     public function section()
     {
-        return $this->belongsTo(Section::class, 'section_id');
+        return $this->belongsTo(Section::class);
     }
 
     /**
@@ -54,14 +58,14 @@ class Attendance extends Model
      */
     public function subject()
     {
-        return $this->belongsTo(Subject::class, 'subject_id');
+        return $this->belongsTo(Subject::class);
     }
 
     /**
-     * Get the marker (who marked attendance)
+     * Get marks for this schedule
      */
-    public function marker()
+    public function marks()
     {
-        return $this->belongsTo(User::class, 'marked_by');
+        return $this->hasMany(Mark::class);
     }
 }

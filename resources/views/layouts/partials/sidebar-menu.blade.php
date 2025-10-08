@@ -49,7 +49,7 @@
 </div>
 
 {{-- Academic Management --}}
-<div x-data="{ open: {{ request()->is('academic*') ? 'true' : 'false' }} }">
+<div x-data="{ open: {{ request()->is('classes*') || request()->is('subjects*') || request()->is('timetable*') ? 'true' : 'false' }} }">
     <button @click="open = !open" class="flex items-center justify-between w-full px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700">
         <div class="flex items-center space-x-3">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -62,18 +62,22 @@
         </svg>
     </button>
     <div x-show="open" x-collapse class="ml-8 mt-2 space-y-2">
-        <a href="#" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">Classes</a>
-        <a href="#" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">Sections</a>
-        <a href="#" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">Subjects</a>
-        <a href="#" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">Academic Year</a>
-        <a href="#" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">Timetable</a>
+        <a href="{{ route('classes.index') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->is('classes*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">
+            Classes & Sections
+        </a>
+        <a href="{{ route('subjects.index') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->is('subjects*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">
+            Subjects
+        </a>
+        <a href="{{ route('timetable.index') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->is('timetable*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">
+            Timetable
+        </a>
     </div>
 </div>
 @endrole
 
 {{-- Attendance --}}
 @role('Super Admin|Admin|Teacher')
-<div x-data="{ open: {{ request()->is('attendance*') ? 'true' : 'false' }} }">
+<div x-data="{ open: {{ request()->is('attendance*') || request()->is('leave-requests*') || request()->is('my-attendance*') ? 'true' : 'false' }} }">
     <button @click="open = !open" class="flex items-center justify-between w-full px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700">
         <div class="flex items-center space-x-3">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -86,15 +90,25 @@
         </svg>
     </button>
     <div x-show="open" x-collapse class="ml-8 mt-2 space-y-2">
-        <a href="#" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">Mark Attendance</a>
-        <a href="#" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">View Reports</a>
+        <a href="{{ route('attendance.create') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->is('attendance/create') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">
+            Mark Attendance
+        </a>
+        <a href="{{ route('attendance.index') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->is('attendance') && !request()->is('attendance/*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">
+            View Attendance
+        </a>
+        <a href="{{ route('attendance.reports') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->is('attendance/reports') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">
+            Reports
+        </a>
+        <a href="{{ route('leave-requests.index') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->is('leave-requests*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">
+            Leave Requests
+        </a>
     </div>
 </div>
 @endrole
 
 {{-- Examinations --}}
 @role('Super Admin|Admin|Teacher')
-<div x-data="{ open: {{ request()->is('exams*') ? 'true' : 'false' }} }">
+<div x-data="{ open: {{ request()->is('exams*') || request()->is('marks*') || request()->is('report-card*') || request()->is('progress-tracking*') ? 'true' : 'false' }} }">
     <button @click="open = !open" class="flex items-center justify-between w-full px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700">
         <div class="flex items-center space-x-3">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -108,10 +122,18 @@
         </svg>
     </button>
     <div x-show="open" x-collapse class="ml-8 mt-2 space-y-2">
-        <a href="#" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">Exam Schedule</a>
-        <a href="#" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">Enter Marks</a>
-        <a href="#" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">Results</a>
-        <a href="#" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">Report Cards</a>
+        <a href="{{ route('exams.index') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->is('exams') && !request()->is('exams/*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">
+            Exam Schedule
+        </a>
+        <a href="{{ route('marks.index') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->is('marks') && !request()->is('marks/*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">
+            Enter Marks
+        </a>
+        <a href="{{ route('marks.report-card') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->is('report-card*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">
+            Report Cards
+        </a>
+        <a href="{{ route('marks.progress-tracking') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->is('progress-tracking*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">
+            Progress Tracking
+        </a>
     </div>
 </div>
 @endrole
