@@ -28,23 +28,24 @@
     </div>
 </div>
 
-{{-- Teachers Management --}}
-<div x-data="{ open: {{ request()->is('teachers*') ? 'true' : 'false' }} }">
+{{-- Faculty & Staff Management --}}
+<div x-data="{ open: {{ request()->is('teachers*') || request()->is('payroll*') || request()->is('teacher-leaves*') ? 'true' : 'false' }} }">
     <button @click="open = !open" class="flex items-center justify-between w-full px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700">
         <div class="flex items-center space-x-3">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"/>
             </svg>
-            <span class="font-medium">Teachers</span>
+            <span class="font-medium">Faculty & Staff</span>
         </div>
         <svg class="w-4 h-4 transition-transform" :class="open ? 'transform rotate-180' : ''" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
         </svg>
     </button>
     <div x-show="open" x-collapse class="ml-8 mt-2 space-y-2">
-        <a href="#" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">All Teachers</a>
-        <a href="#" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">Add Teacher</a>
-        <a href="#" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">Departments</a>
+        <a href="{{ route('teachers.index') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->is('teachers') && !request()->is('teachers/*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">All Teachers</a>
+        <a href="{{ route('teachers.create') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->is('teachers/create') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">Add Teacher</a>
+        <a href="{{ route('payroll.index') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->is('payroll*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">Payroll</a>
+        <a href="{{ route('teacher-leaves.index') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->is('teacher-leaves*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">Leave Management</a>
     </div>
 </div>
 

@@ -62,6 +62,11 @@ use App\Http\Controllers\LeaveRequestController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\MarksController;
 
+// Phase 6: Faculty & Staff Management
+use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\PayrollController;
+use App\Http\Controllers\TeacherLeaveController;
+
 Route::middleware(['auth', 'role:Super Admin|Admin'])->group(function () {
     Route::resource('students', StudentController::class);
     Route::get('students/{student}/id-card', [StudentController::class, 'idCard'])->name('students.id-card');
@@ -134,6 +139,39 @@ Route::middleware(['auth', 'role:Super Admin|Admin'])->group(function () {
     Route::get('report-card', [MarksController::class, 'reportCard'])->name('marks.report-card');
     Route::get('report-card/{exam}/{student}/download', [MarksController::class, 'downloadReportCard'])->name('marks.download-report-card');
     Route::get('progress-tracking', [MarksController::class, 'progressTracking'])->name('marks.progress-tracking');
+    
+    // Phase 6: Teacher Management
+    Route::resource('teachers', TeacherController::class);
+    Route::get('teachers/{teacher}/attendance', [TeacherController::class, 'attendance'])->name('teachers.attendance');
+    Route::get('teachers/{teacher}/workload', [TeacherController::class, 'workload'])->name('teachers.workload');
+    Route::get('teachers/{teacher}/performance', [TeacherController::class, 'performance'])->name('teachers.performance');
+    Route::get('teachers/{teacher}/id-card', [TeacherController::class, 'idCard'])->name('teachers.id-card');
+    
+    // Payroll Management
+    Route::get('payroll', [PayrollController::class, 'index'])->name('payroll.index');
+    Route::get('payroll/create', [PayrollController::class, 'create'])->name('payroll.create');
+    Route::post('payroll', [PayrollController::class, 'store'])->name('payroll.store');
+    Route::get('payroll/{payroll}', [PayrollController::class, 'show'])->name('payroll.show');
+    Route::patch('payroll/{payroll}', [PayrollController::class, 'update'])->name('payroll.update');
+    Route::delete('payroll/{payroll}', [PayrollController::class, 'destroy'])->name('payroll.destroy');
+    Route::get('payroll/salary-structure', [PayrollController::class, 'salaryStructure'])->name('payroll.salary-structure');
+    Route::post('payroll/salary-structure', [PayrollController::class, 'storeSalaryComponent'])->name('payroll.salary-structure.store');
+    Route::delete('payroll/salary-structure/{component}', [PayrollController::class, 'destroySalaryComponent'])->name('payroll.salary-structure.destroy');
+    Route::get('payroll/{payroll}/salary-slip', [PayrollController::class, 'salarySlip'])->name('payroll.salary-slip');
+    Route::get('payroll/{payroll}/salary-slip/pdf', [PayrollController::class, 'salarySlipPdf'])->name('payroll.salary-slip-pdf');
+    Route::get('payroll/reports', [PayrollController::class, 'reports'])->name('payroll.reports');
+    Route::get('payroll/{teacher}/history', [PayrollController::class, 'salaryHistory'])->name('payroll.salary-history');
+    
+    // Teacher Leave Management
+    Route::get('teacher-leaves', [TeacherLeaveController::class, 'index'])->name('teacher-leaves.index');
+    Route::get('teacher-leaves/create', [TeacherLeaveController::class, 'create'])->name('teacher-leaves.create');
+    Route::post('teacher-leaves', [TeacherLeaveController::class, 'store'])->name('teacher-leaves.store');
+    Route::get('teacher-leaves/{teacherLeave}', [TeacherLeaveController::class, 'show'])->name('teacher-leaves.show');
+    Route::delete('teacher-leaves/{teacherLeave}', [TeacherLeaveController::class, 'destroy'])->name('teacher-leaves.destroy');
+    Route::post('teacher-leaves/{teacherLeave}/approve', [TeacherLeaveController::class, 'approve'])->name('teacher-leaves.approve');
+    Route::post('teacher-leaves/{teacherLeave}/reject', [TeacherLeaveController::class, 'reject'])->name('teacher-leaves.reject');
+    Route::get('teacher-leaves/balance', [TeacherLeaveController::class, 'balance'])->name('teacher-leaves.balance');
+    Route::get('teacher-leaves/history', [TeacherLeaveController::class, 'history'])->name('teacher-leaves.history');
 });
 
 // Public Admission Form
