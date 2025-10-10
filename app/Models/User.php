@@ -66,4 +66,44 @@ class User extends Authenticatable
     {
         return $this->hasOne(Teacher::class, 'user_id');
     }
+
+    /**
+     * Get sent messages
+     */
+    public function sentMessages()
+    {
+        return $this->hasMany(Message::class, 'sender_id');
+    }
+
+    /**
+     * Get received messages
+     */
+    public function receivedMessages()
+    {
+        return $this->hasMany(Message::class, 'receiver_id');
+    }
+
+    /**
+     * Get user's complaints
+     */
+    public function complaints()
+    {
+        return $this->hasMany(Complaint::class);
+    }
+
+    /**
+     * Get notification settings
+     */
+    public function notificationSettings()
+    {
+        return $this->hasOne(NotificationSetting::class);
+    }
+
+    /**
+     * Get SMS logs
+     */
+    public function smsLogs()
+    {
+        return $this->hasMany(SmsLog::class);
+    }
 }

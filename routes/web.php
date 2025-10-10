@@ -257,6 +257,48 @@ Route::middleware(['auth', 'role:Super Admin|Admin'])->group(function () {
     Route::get('book-issues/my-books/list', [App\Http\Controllers\BookIssueController::class, 'myBooks'])->name('book-issues.my-books');
     Route::post('book-issues/{bookIssue}/renew', [App\Http\Controllers\BookIssueController::class, 'renewBook'])->name('book-issues.renew');
     Route::get('book-issues/history/list', [App\Http\Controllers\BookIssueController::class, 'history'])->name('book-issues.history');
+    
+    // Phase 9: Communication System
+    // Messages
+    Route::resource('messages', App\Http\Controllers\MessageController::class);
+    Route::get('messages/compose/new', [App\Http\Controllers\MessageController::class, 'compose'])->name('messages.compose');
+    Route::post('messages/{message}/reply', [App\Http\Controllers\MessageController::class, 'reply'])->name('messages.reply');
+    Route::post('messages/{message}/archive', [App\Http\Controllers\MessageController::class, 'archive'])->name('messages.archive');
+    Route::post('messages/mark-all-read', [App\Http\Controllers\MessageController::class, 'markAllAsRead'])->name('messages.mark-all-read');
+    
+    // Events
+    Route::resource('events', App\Http\Controllers\EventController::class);
+    Route::get('events-calendar', [App\Http\Controllers\EventController::class, 'calendar'])->name('events.calendar');
+    Route::get('events/upcoming/list', [App\Http\Controllers\EventController::class, 'upcoming'])->name('events.upcoming');
+    
+    // Notices
+    Route::resource('notices', App\Http\Controllers\NoticeController::class);
+    Route::post('notices/{notice}/pin', [App\Http\Controllers\NoticeController::class, 'pin'])->name('notices.pin');
+    Route::post('notices/{notice}/unpin', [App\Http\Controllers\NoticeController::class, 'unpin'])->name('notices.unpin');
+    Route::post('notices/{notice}/archive', [App\Http\Controllers\NoticeController::class, 'archive'])->name('notices.archive');
+    
+    // Announcements
+    Route::resource('announcements', App\Http\Controllers\AnnouncementController::class);
+    Route::post('announcements/{announcement}/pin', [App\Http\Controllers\AnnouncementController::class, 'pin'])->name('announcements.pin');
+    Route::post('announcements/{announcement}/unpin', [App\Http\Controllers\AnnouncementController::class, 'unpin'])->name('announcements.unpin');
+    
+    // Complaints
+    Route::resource('complaints', App\Http\Controllers\ComplaintController::class);
+    Route::get('my-complaints', [App\Http\Controllers\ComplaintController::class, 'myComplaints'])->name('complaints.my');
+    Route::post('complaints/{complaint}/assign', [App\Http\Controllers\ComplaintController::class, 'assign'])->name('complaints.assign');
+    Route::post('complaints/{complaint}/update-status', [App\Http\Controllers\ComplaintController::class, 'updateStatus'])->name('complaints.update-status');
+    Route::post('complaints/{complaint}/resolve', [App\Http\Controllers\ComplaintController::class, 'resolve'])->name('complaints.resolve');
+    Route::post('complaints/{complaint}/feedback', [App\Http\Controllers\ComplaintController::class, 'submitFeedback'])->name('complaints.feedback');
+    Route::get('complaints-statistics', [App\Http\Controllers\ComplaintController::class, 'statistics'])->name('complaints.statistics');
+    
+    // Notifications
+    Route::get('notifications', [App\Http\Controllers\NotificationController::class, 'index'])->name('notifications.index');
+    Route::post('notifications/{id}/mark-read', [App\Http\Controllers\NotificationController::class, 'markAsRead'])->name('notifications.mark-read');
+    Route::post('notifications/mark-all-read', [App\Http\Controllers\NotificationController::class, 'markAllAsRead'])->name('notifications.mark-all-read');
+    Route::delete('notifications/{id}', [App\Http\Controllers\NotificationController::class, 'destroy'])->name('notifications.destroy');
+    Route::get('notification-settings', [App\Http\Controllers\NotificationController::class, 'settings'])->name('notifications.settings');
+    Route::patch('notification-settings', [App\Http\Controllers\NotificationController::class, 'updateSettings'])->name('notifications.update-settings');
+    Route::get('notifications/unread', [App\Http\Controllers\NotificationController::class, 'unread'])->name('notifications.unread');
 });
 
 // Public Admission Form
