@@ -170,4 +170,12 @@ class Teacher extends Model
     {
         return $query->where('status', 'inactive');
     }
+
+    /**
+     * Get all book issues
+     */
+    public function bookIssues()
+    {
+        return $this->hasMany(BookIssue::class);
+    }
 }

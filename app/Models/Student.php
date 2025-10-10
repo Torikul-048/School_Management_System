@@ -113,9 +113,9 @@ class Student extends Model
     /**
      * Get all book issues
      */
-    public function bookIssues(): MorphMany
+    public function bookIssues(): HasMany
     {
-        return $this->morphMany(BookIssue::class, 'issuable');
+        return $this->hasMany(BookIssue::class);
     }
 
     /**

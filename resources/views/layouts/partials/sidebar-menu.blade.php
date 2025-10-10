@@ -139,27 +139,28 @@
 </div>
 @endrole
 
-{{-- Fee Management --}}
+{{-- Finance & Accounts Module --}}
 @role('Super Admin|Admin|Accountant')
-<div x-data="{ open: {{ request()->is('fees*') ? 'true' : 'false' }} }">
+<div x-data="{ open: {{ request()->is('fee-*') || request()->is('scholarships*') || request()->is('expenses*') || request()->is('invoices*') || request()->is('finance*') ? 'true' : 'false' }} }">
     <button @click="open = !open" class="flex items-center justify-between w-full px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700">
         <div class="flex items-center space-x-3">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"/>
                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd"/>
             </svg>
-            <span class="font-medium">Fee Management</span>
+            <span class="font-medium">Finance & Accounts</span>
         </div>
         <svg class="w-4 h-4 transition-transform" :class="open ? 'transform rotate-180' : ''" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
         </svg>
     </button>
     <div x-show="open" x-collapse class="ml-8 mt-2 space-y-2">
-        <a href="#" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">Fee Categories</a>
-        <a href="#" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">Collect Fees</a>
-        <a href="#" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">Invoices</a>
-        <a href="#" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">Due Payments</a>
-        <a href="#" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">Reports</a>
+        <a href="{{ route('fee-structures.index') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->is('fee-structures*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">Fee Structures</a>
+        <a href="{{ route('fee-collections.index') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->is('fee-collections*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">Fee Collections</a>
+        <a href="{{ route('scholarships.index') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->is('scholarships*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">Scholarships</a>
+        <a href="{{ route('expenses.index') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->is('expenses*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">Expenses</a>
+        <a href="{{ route('invoices.index') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->is('invoices*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">Invoices</a>
+        <a href="{{ route('finance.reports.index') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->is('finance/reports*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">Financial Reports</a>
     </div>
 </div>
 @endrole

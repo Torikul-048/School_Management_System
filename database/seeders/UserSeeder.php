@@ -27,17 +27,29 @@ class UserSeeder extends Seeder
 
         $this->command->info('✅ Created Super Admin: superadmin@school.com');
 
-        // Admin
-        $admin = User::create([
-            'name' => 'School Administrator',
-            'email' => 'admin@school.com',
+        // Librarian
+        $librarian = User::create([
+            'name' => 'Library Manager',
+            'email' => 'librarian@school.com',
             'password' => $defaultPassword,
             'phone' => '1234567891',
             'status' => 'active',
         ]);
-        $admin->assignRole('Admin');
+        $librarian->assignRole('Librarian');
 
-        $this->command->info('✅ Created Admin: admin@school.com');
+        $this->command->info('✅ Created Librarian: librarian@school.com');
+
+        // Accountant
+        $accountant = User::create([
+            'name' => 'School Accountant',
+            'email' => 'accountant@school.com',
+            'password' => $defaultPassword,
+            'phone' => '1234567895',
+            'status' => 'active',
+        ]);
+        $accountant->assignRole('Accountant');
+
+        $this->command->info('✅ Created Accountant: accountant@school.com');
 
         // Teacher
         $teacher = User::create([

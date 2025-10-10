@@ -2,6 +2,12 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FeeStructureController;
+use App\Http\Controllers\FeeCollectionController;
+use App\Http\Controllers\ScholarshipController;
+use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\FinanceReportController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -172,6 +178,85 @@ Route::middleware(['auth', 'role:Super Admin|Admin'])->group(function () {
     Route::post('teacher-leaves/{teacherLeave}/reject', [TeacherLeaveController::class, 'reject'])->name('teacher-leaves.reject');
     Route::get('teacher-leaves/balance', [TeacherLeaveController::class, 'balance'])->name('teacher-leaves.balance');
     Route::get('teacher-leaves/history', [TeacherLeaveController::class, 'history'])->name('teacher-leaves.history');
+    
+    // Phase 7: Finance & Accounts Module
+    // Fee Structures
+    Route::resource('fee-structures', FeeStructureController::class);
+    
+    // Fee Collections
+    Route::get('fee-collections', [FeeCollectionController::class, 'index'])->name('fee-collections.index');
+    Route::get('fee-collections/create', [FeeCollectionController::class, 'create'])->name('fee-collections.create');
+    Route::post('fee-collections', [FeeCollectionController::class, 'store'])->name('fee-collections.store');
+    Route::get('fee-collections/{feeCollection}', [FeeCollectionController::class, 'show'])->name('fee-collections.show');
+    Route::delete('fee-collections/{feeCollection}', [FeeCollectionController::class, 'destroy'])->name('fee-collections.destroy');
+    Route::get('fee-collections/{id}/receipt', [FeeCollectionController::class, 'receipt'])->name('fee-collections.receipt');
+    Route::get('fee-collections/{id}/print', [FeeCollectionController::class, 'printReceipt'])->name('fee-collections.print');
+    Route::get('fee-collections/search/results', [FeeCollectionController::class, 'search'])->name('fee-collections.search');
+    Route::get('fee-collections/defaulters/list', [FeeCollectionController::class, 'defaulters'])->name('fee-collections.defaulters');
+    
+    // Scholarships
+    Route::resource('scholarships', ScholarshipController::class);
+    Route::get('scholarships/assign/student', [ScholarshipController::class, 'assignStudent'])->name('scholarships.assign');
+    Route::post('scholarships/assign/student', [ScholarshipController::class, 'storeAssignment'])->name('scholarships.assign.store');
+    Route::post('scholarships/revoke/{id}', [ScholarshipController::class, 'revokeAssignment'])->name('scholarships.revoke');
+    
+    // Expenses
+    Route::resource('expenses', ExpenseController::class);
+    Route::post('expenses/{id}/approve', [ExpenseController::class, 'approve'])->name('expenses.approve');
+    Route::post('expenses/{id}/reject', [ExpenseController::class, 'reject'])->name('expenses.reject');
+    Route::get('expenses/by-category/view', [ExpenseController::class, 'byCategory'])->name('expenses.by-category');
+    
+    // Invoices
+    Route::resource('invoices', InvoiceController::class);
+    Route::post('invoices/{id}/send', [InvoiceController::class, 'send'])->name('invoices.send');
+    Route::post('invoices/{id}/cancel', [InvoiceController::class, 'cancel'])->name('invoices.cancel');
+    Route::get('invoices/{id}/print', [InvoiceController::class, 'printInvoice'])->name('invoices.print');
+    
+    // Finance Reports
+    Route::get('finance/reports', [FinanceReportController::class, 'index'])->name('finance.reports.index');
+    Route::get('finance/reports/income', [FinanceReportController::class, 'income'])->name('finance.reports.income');
+    Route::get('finance/reports/expenses', [FinanceReportController::class, 'expenses'])->name('finance.reports.expenses');
+    Route::get('finance/reports/balance', [FinanceReportController::class, 'balance'])->name('finance.reports.balance');
+    Route::get('finance/reports/student-ledger', [FinanceReportController::class, 'studentLedgerList'])->name('finance.reports.student-ledger');
+    Route::get('finance/reports/student-ledger/{student}', [FinanceReportController::class, 'studentLedger'])->name('finance.reports.student-ledger.show');
+    Route::get('finance/reports/daily-collection', [FinanceReportController::class, 'dailyCollection'])->name('finance.reports.daily-collection');
+    Route::get('finance/reports/income/pdf', [FinanceReportController::class, 'downloadIncomePdf'])->name('finance.reports.income.pdf');
+    Route::get('finance/reports/expenses/pdf', [FinanceReportController::class, 'downloadExpensePdf'])->name('finance.reports.expenses.pdf');
+    
+    // Phase 8: Library Management Module
+    // Library Dashboard
+    Route::get('library/dashboard', [App\Http\Controllers\LibraryController::class, 'dashboard'])->name('library.dashboard');
+    Route::get('library/statistics', [App\Http\Controllers\LibraryController::class, 'statistics'])->name('library.statistics');
+    Route::get('library/reports', [App\Http\Controllers\LibraryController::class, 'reports'])->name('library.reports');
+    
+    // Library Settings
+    Route::get('library/settings', [App\Http\Controllers\LibraryController::class, 'settings'])->name('library.settings');
+    Route::patch('library/settings', [App\Http\Controllers\LibraryController::class, 'updateSettings'])->name('library.settings.update');
+    
+    // Book Categories
+    Route::get('library/categories', [App\Http\Controllers\LibraryController::class, 'categories'])->name('library.categories');
+    Route::get('library/categories/create', [App\Http\Controllers\LibraryController::class, 'createCategory'])->name('library.categories.create');
+    Route::post('library/categories', [App\Http\Controllers\LibraryController::class, 'storeCategory'])->name('library.categories.store');
+    Route::get('library/categories/{category}/edit', [App\Http\Controllers\LibraryController::class, 'editCategory'])->name('library.categories.edit');
+    Route::patch('library/categories/{category}', [App\Http\Controllers\LibraryController::class, 'updateCategory'])->name('library.categories.update');
+    Route::delete('library/categories/{category}', [App\Http\Controllers\LibraryController::class, 'destroyCategory'])->name('library.categories.destroy');
+    
+    // Books Management
+    Route::resource('books', App\Http\Controllers\BookController::class);
+    Route::get('books/search/results', [App\Http\Controllers\BookController::class, 'search'])->name('books.search');
+    Route::get('books/inventory/list', [App\Http\Controllers\BookController::class, 'inventory'])->name('books.inventory');
+    Route::get('books/digital-library/list', [App\Http\Controllers\BookController::class, 'digitalLibrary'])->name('books.digital-library');
+    Route::get('books/{book}/download-pdf', [App\Http\Controllers\BookController::class, 'downloadPdf'])->name('books.download-pdf');
+    Route::post('books/scan-barcode', [App\Http\Controllers\BookController::class, 'scanBarcode'])->name('books.scan-barcode');
+    
+    // Book Issues Management
+    Route::resource('book-issues', App\Http\Controllers\BookIssueController::class);
+    Route::post('book-issues/{bookIssue}/return', [App\Http\Controllers\BookIssueController::class, 'returnBook'])->name('book-issues.return');
+    Route::post('book-issues/{bookIssue}/pay-fine', [App\Http\Controllers\BookIssueController::class, 'payFine'])->name('book-issues.pay-fine');
+    Route::get('book-issues/overdue/list', [App\Http\Controllers\BookIssueController::class, 'overdue'])->name('book-issues.overdue');
+    Route::get('book-issues/my-books/list', [App\Http\Controllers\BookIssueController::class, 'myBooks'])->name('book-issues.my-books');
+    Route::post('book-issues/{bookIssue}/renew', [App\Http\Controllers\BookIssueController::class, 'renewBook'])->name('book-issues.renew');
+    Route::get('book-issues/history/list', [App\Http\Controllers\BookIssueController::class, 'history'])->name('book-issues.history');
 });
 
 // Public Admission Form
