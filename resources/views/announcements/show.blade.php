@@ -12,7 +12,7 @@
                 <p class="text-gray-600 dark:text-gray-400 text-sm mt-1">View announcement information</p>
             </div>
             <div class="flex gap-3">
-                @role('Super Admin|Admin')
+                @role('Admin')
                 <a href="{{ route('announcements.edit', $announcement) }}" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
                     Edit
                 </a>
@@ -156,7 +156,7 @@
             </div>
 
             <!-- Actions -->
-            @role('Super Admin|Admin')
+            @role('Admin')
             <div class="p-6 bg-gray-50 dark:bg-gray-700 border-t border-gray-200 dark:border-gray-600 flex justify-between items-center">
                 <div class="flex gap-3">
                     @if(!$announcement->is_pinned)

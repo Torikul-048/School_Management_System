@@ -53,6 +53,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::delete('/profile/avatar', [ProfileController::class, 'removeAvatar'])->name('profile.avatar.remove');
 });
 
 // Student Management Routes
@@ -277,8 +278,12 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::post('notices/{notice}/unpin', [App\Http\Controllers\NoticeController::class, 'unpin'])->name('notices.unpin');
     Route::post('notices/{notice}/archive', [App\Http\Controllers\NoticeController::class, 'archive'])->name('notices.archive');
     
-    // Announcements
-    Route::resource('announcements', App\Http\Controllers\AnnouncementController::class);
+    // Announcements - Admin Only (Create, Edit, Delete)
+    Route::get('announcements/create', [App\Http\Controllers\AnnouncementController::class, 'create'])->name('announcements.create');
+    Route::post('announcements', [App\Http\Controllers\AnnouncementController::class, 'store'])->name('announcements.store');
+    Route::get('announcements/{announcement}/edit', [App\Http\Controllers\AnnouncementController::class, 'edit'])->name('announcements.edit');
+    Route::patch('announcements/{announcement}', [App\Http\Controllers\AnnouncementController::class, 'update'])->name('announcements.update');
+    Route::delete('announcements/{announcement}', [App\Http\Controllers\AnnouncementController::class, 'destroy'])->name('announcements.destroy');
     Route::post('announcements/{announcement}/pin', [App\Http\Controllers\AnnouncementController::class, 'pin'])->name('announcements.pin');
     Route::post('announcements/{announcement}/unpin', [App\Http\Controllers\AnnouncementController::class, 'unpin'])->name('announcements.unpin');
     
@@ -299,6 +304,12 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::get('notification-settings', [App\Http\Controllers\NotificationController::class, 'settings'])->name('notifications.settings');
     Route::patch('notification-settings', [App\Http\Controllers\NotificationController::class, 'updateSettings'])->name('notifications.update-settings');
     Route::get('notifications/unread', [App\Http\Controllers\NotificationController::class, 'unread'])->name('notifications.unread');
+});
+
+// Announcements - View Only (All Authenticated Users)
+Route::middleware(['auth'])->group(function () {
+    Route::get('announcements', [App\Http\Controllers\AnnouncementController::class, 'index'])->name('announcements.index');
+    Route::get('announcements/{announcement}', [App\Http\Controllers\AnnouncementController::class, 'show'])->name('announcements.show');
 });
 
 // Analytics & Reports Routes
@@ -338,6 +349,62 @@ Route::middleware(['auth'])->group(function () {
     Route::get('reports/exams', [App\Http\Controllers\ReportController::class, 'examReport'])->name('reports.exams');
     Route::get('reports/teachers', [App\Http\Controllers\ReportController::class, 'teacherReport'])->name('reports.teachers');
     Route::get('reports/financial', [App\Http\Controllers\ReportController::class, 'financialReport'])->name('reports.financial');
+});
+
+// Teacher Portal Routes
+Route::middleware(['auth', 'role:Teacher'])->prefix('teacher')->name('teacher.')->group(function () {
+    // Profile & Timetable
+    Route::get('profile', [App\Http\Controllers\Teacher\TeacherPortalController::class, 'profile'])->name('profile');
+    Route::put('profile', [App\Http\Controllers\Teacher\TeacherPortalController::class, 'updateProfile'])->name('profile.update');
+    Route::get('timetable', [App\Http\Controllers\Teacher\TeacherPortalController::class, 'timetable'])->name('timetable');
+    
+    // My Classes & Subjects
+    Route::get('my-classes', [App\Http\Controllers\Teacher\TeacherPortalController::class, 'myClasses'])->name('my-classes');
+    Route::get('my-subjects', [App\Http\Controllers\Teacher\TeacherPortalController::class, 'mySubjects'])->name('my-subjects');
+    
+    // Students
+    Route::get('students', [App\Http\Controllers\Teacher\TeacherPortalController::class, 'students'])->name('students');
+    Route::get('students/{student}', [App\Http\Controllers\Teacher\TeacherPortalController::class, 'studentDetails'])->name('students.show');
+    
+    // Attendance Management
+    Route::get('attendance', [App\Http\Controllers\Teacher\AttendanceController::class, 'index'])->name('attendance.index');
+    Route::get('attendance/take', [App\Http\Controllers\Teacher\AttendanceController::class, 'take'])->name('attendance.take');
+    Route::post('attendance/take', [App\Http\Controllers\Teacher\AttendanceController::class, 'store'])->name('attendance.store');
+    Route::get('attendance/report', [App\Http\Controllers\Teacher\AttendanceController::class, 'report'])->name('attendance.report');
+    
+    // Marks & Exams
+    Route::get('marks', [App\Http\Controllers\Teacher\MarksController::class, 'index'])->name('marks.index');
+    Route::get('marks/enter', [App\Http\Controllers\Teacher\MarksController::class, 'enter'])->name('marks.enter');
+    Route::post('marks/enter', [App\Http\Controllers\Teacher\MarksController::class, 'store'])->name('marks.store');
+    Route::get('marks/edit/{exam}/{class}', [App\Http\Controllers\Teacher\MarksController::class, 'edit'])->name('marks.edit');
+    Route::put('marks/update', [App\Http\Controllers\Teacher\MarksController::class, 'update'])->name('marks.update');
+    
+    // Report Cards
+    Route::get('report-cards', [App\Http\Controllers\Teacher\ReportCardController::class, 'index'])->name('report-cards.index');
+    Route::get('report-cards/generate', [App\Http\Controllers\Teacher\ReportCardController::class, 'generate'])->name('report-cards.generate');
+    Route::post('report-cards/generate', [App\Http\Controllers\Teacher\ReportCardController::class, 'store'])->name('report-cards.store');
+    
+    // Class Materials & Assignments
+    Route::resource('materials', App\Http\Controllers\Teacher\ClassMaterialController::class);
+    Route::resource('assignments', App\Http\Controllers\Teacher\AssignmentController::class);
+    Route::get('assignments/{assignment}/submissions', [App\Http\Controllers\Teacher\AssignmentController::class, 'submissions'])->name('assignments.submissions');
+    
+    // Communication
+    Route::get('messages', [App\Http\Controllers\Teacher\MessageController::class, 'index'])->name('messages.index');
+    Route::get('messages/create', [App\Http\Controllers\Teacher\MessageController::class, 'create'])->name('messages.create');
+    Route::post('messages', [App\Http\Controllers\Teacher\MessageController::class, 'store'])->name('messages.store');
+    Route::get('messages/{message}', [App\Http\Controllers\Teacher\MessageController::class, 'show'])->name('messages.show');
+    
+    // Leave Management
+    Route::get('leaves', [App\Http\Controllers\Teacher\LeaveController::class, 'index'])->name('leaves.index');
+    Route::get('leaves/apply', [App\Http\Controllers\Teacher\LeaveController::class, 'create'])->name('leaves.create');
+    Route::post('leaves', [App\Http\Controllers\Teacher\LeaveController::class, 'store'])->name('leaves.store');
+    Route::get('leaves/{leave}', [App\Http\Controllers\Teacher\LeaveController::class, 'show'])->name('leaves.show');
+    
+    // Salary Slip
+    Route::get('salary', [App\Http\Controllers\Teacher\SalaryController::class, 'index'])->name('salary.index');
+    Route::get('salary/{payroll}/slip', [App\Http\Controllers\Teacher\SalaryController::class, 'slip'])->name('salary.slip');
+    Route::get('salary/{payroll}/download', [App\Http\Controllers\Teacher\SalaryController::class, 'download'])->name('salary.download');
 });
 
 // Public Admission Form

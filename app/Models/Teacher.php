@@ -79,7 +79,7 @@ class Teacher extends Model
      */
     public function classes()
     {
-        return $this->belongsToMany(Classes::class, 'subject_assignments', 'teacher_id', 'class_id')
+        return $this->belongsToMany(Classes::class, 'subject_teacher', 'teacher_id', 'class_id')
             ->distinct();
     }
 

@@ -6,6 +6,126 @@
     <span class="font-medium">Dashboard</span>
 </a>
 
+@role('Teacher')
+{{-- Teacher Menu Items --}}
+<a href="{{ route('teacher.profile') }}" class="flex items-center space-x-3 px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700 {{ request()->routeIs('teacher.profile') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">
+    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+    </svg>
+    <span class="font-medium">My Profile</span>
+</a>
+
+<a href="{{ route('teacher.timetable') }}" class="flex items-center space-x-3 px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700 {{ request()->routeIs('teacher.timetable') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">
+    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+    </svg>
+    <span class="font-medium">My Timetable</span>
+</a>
+
+{{-- Classes & Subjects --}}
+<div x-data="{ open: {{ request()->is('teacher/my-classes*') || request()->is('teacher/my-subjects*') || request()->is('teacher/students*') ? 'true' : 'false' }} }">
+    <button @click="open = !open" class="flex items-center justify-between w-full px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700">
+        <div class="flex items-center space-x-3">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3z"/>
+            </svg>
+            <span class="font-medium">Classes & Students</span>
+        </div>
+        <svg class="w-4 h-4 transition-transform" :class="open ? 'transform rotate-180' : ''" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+        </svg>
+    </button>
+    <div x-show="open" x-collapse class="ml-8 mt-2 space-y-2">
+        <a href="{{ route('teacher.my-classes') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">My Classes</a>
+        <a href="{{ route('teacher.my-subjects') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">My Subjects</a>
+        <a href="{{ route('teacher.students') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">My Students</a>
+    </div>
+</div>
+
+{{-- Attendance --}}
+<div x-data="{ open: {{ request()->is('teacher/attendance*') ? 'true' : 'false' }} }">
+    <button @click="open = !open" class="flex items-center justify-between w-full px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700">
+        <div class="flex items-center space-x-3">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+            </svg>
+            <span class="font-medium">Attendance</span>
+        </div>
+        <svg class="w-4 h-4 transition-transform" :class="open ? 'transform rotate-180' : ''" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+        </svg>
+    </button>
+    <div x-show="open" x-collapse class="ml-8 mt-2 space-y-2">
+        <a href="{{ route('teacher.attendance.take') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">Take Attendance</a>
+        <a href="{{ route('teacher.attendance.index') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">View Attendance</a>
+        <a href="{{ route('teacher.attendance.report') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">Reports</a>
+    </div>
+</div>
+
+{{-- Marks & Exams --}}
+<div x-data="{ open: {{ request()->is('teacher/marks*') || request()->is('teacher/report-cards*') ? 'true' : 'false' }} }">
+    <button @click="open = !open" class="flex items-center justify-between w-full px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700">
+        <div class="flex items-center space-x-3">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+                <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 011-1h4a1 1 0 110 2H8a1 1 0 01-1-1zm0 3a1 1 0 011-1h4a1 1 0 110 2H8a1 1 0 01-1-1zm0 3a1 1 0 011-1h4a1 1 0 110 2H8a1 1 0 01-1-1z" clip-rule="evenodd"/>
+            </svg>
+            <span class="font-medium">Marks & Exams</span>
+        </div>
+        <svg class="w-4 h-4 transition-transform" :class="open ? 'transform rotate-180' : ''" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+        </svg>
+    </button>
+    <div x-show="open" x-collapse class="ml-8 mt-2 space-y-2">
+        <a href="{{ route('teacher.marks.enter') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">Enter Marks</a>
+        <a href="{{ route('teacher.marks.index') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">View Marks</a>
+        <a href="{{ route('teacher.report-cards.index') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">Report Cards</a>
+    </div>
+</div>
+
+{{-- Materials & Assignments --}}
+<div x-data="{ open: {{ request()->is('teacher/materials*') || request()->is('teacher/assignments*') ? 'true' : 'false' }} }">
+    <button @click="open = !open" class="flex items-center justify-between w-full px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700">
+        <div class="flex items-center space-x-3">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/>
+            </svg>
+            <span class="font-medium">Materials</span>
+        </div>
+        <svg class="w-4 h-4 transition-transform" :class="open ? 'transform rotate-180' : ''" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+        </svg>
+    </button>
+    <div x-show="open" x-collapse class="ml-8 mt-2 space-y-2">
+        <a href="{{ route('teacher.materials.index') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">Class Materials</a>
+        <a href="{{ route('teacher.assignments.index') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">Assignments</a>
+    </div>
+</div>
+
+<a href="{{ route('teacher.messages.index') }}" class="flex items-center space-x-3 px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700 {{ request()->routeIs('teacher.messages*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">
+    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+    </svg>
+    <span class="font-medium">Messages</span>
+</a>
+
+<a href="{{ route('teacher.leaves.index') }}" class="flex items-center space-x-3 px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700 {{ request()->routeIs('teacher.leaves*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">
+    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+    </svg>
+    <span class="font-medium">Leave Management</span>
+</a>
+
+<a href="{{ route('teacher.salary.index') }}" class="flex items-center space-x-3 px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700 {{ request()->routeIs('teacher.salary*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">
+    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"/>
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd"/>
+    </svg>
+    <span class="font-medium">Salary Slips</span>
+</a>
+@endrole
+
 @role('Super Admin|Admin')
 {{-- Students Management --}}
 <div x-data="{ open: {{ request()->is('students*') || request()->is('admissions*') ? 'true' : 'false' }} }">
@@ -76,39 +196,39 @@
 </div>
 @endrole
 
-{{-- Attendance --}}
-@role('Super Admin|Admin|Teacher')
+{{-- Attendance (Admin Only) --}}
+@role('Super Admin|Admin')
 <div x-data="{ open: {{ request()->is('attendance*') || request()->is('leave-requests*') || request()->is('my-attendance*') ? 'true' : 'false' }} }">
     <button @click="open = !open" class="flex items-center justify-between w-full px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700">
         <div class="flex items-center space-x-3">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
             </svg>
-            <span class="font-medium">Attendance</span>
+            <span class="font-medium">Attendance (Admin)</span>
         </div>
         <svg class="w-4 h-4 transition-transform" :class="open ? 'transform rotate-180' : ''" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
         </svg>
     </button>
     <div x-show="open" x-collapse class="ml-8 mt-2 space-y-2">
-        <a href="{{ route('attendance.create') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->is('attendance/create') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">
+        <a href="{{ route('attendance.create') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
             Mark Attendance
         </a>
-        <a href="{{ route('attendance.index') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->is('attendance') && !request()->is('attendance/*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">
+        <a href="{{ route('attendance.index') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
             View Attendance
         </a>
-        <a href="{{ route('attendance.reports') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->is('attendance/reports') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">
+        <a href="{{ route('attendance.reports') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
             Reports
         </a>
-        <a href="{{ route('leave-requests.index') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->is('leave-requests*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">
+        <a href="{{ route('leave-requests.index') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
             Leave Requests
         </a>
     </div>
 </div>
 @endrole
 
-{{-- Examinations --}}
-@role('Super Admin|Admin|Teacher')
+{{-- Examinations (Admin Only) --}}
+@role('Super Admin|Admin')
 <div x-data="{ open: {{ request()->is('exams*') || request()->is('marks*') || request()->is('report-card*') || request()->is('progress-tracking*') ? 'true' : 'false' }} }">
     <button @click="open = !open" class="flex items-center justify-between w-full px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700">
         <div class="flex items-center space-x-3">
@@ -116,23 +236,23 @@
                 <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
                 <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 011-1h4a1 1 0 110 2H8a1 1 0 01-1-1zm0 3a1 1 0 011-1h4a1 1 0 110 2H8a1 1 0 01-1-1zm0 3a1 1 0 011-1h4a1 1 0 110 2H8a1 1 0 01-1-1z" clip-rule="evenodd"/>
             </svg>
-            <span class="font-medium">Examinations</span>
+            <span class="font-medium">Examinations (Admin)</span>
         </div>
         <svg class="w-4 h-4 transition-transform" :class="open ? 'transform rotate-180' : ''" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
         </svg>
     </button>
     <div x-show="open" x-collapse class="ml-8 mt-2 space-y-2">
-        <a href="{{ route('exams.index') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->is('exams') && !request()->is('exams/*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">
+        <a href="{{ route('exams.index') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
             Exam Schedule
         </a>
-        <a href="{{ route('marks.index') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->is('marks') && !request()->is('marks/*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">
+        <a href="{{ route('marks.index') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
             Enter Marks
         </a>
-        <a href="{{ route('marks.report-card') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->is('report-card*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">
+        <a href="{{ route('marks.report-card') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
             Report Cards
         </a>
-        <a href="{{ route('marks.progress-tracking') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->is('progress-tracking*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">
+        <a href="{{ route('marks.progress-tracking') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
             Progress Tracking
         </a>
     </div>
