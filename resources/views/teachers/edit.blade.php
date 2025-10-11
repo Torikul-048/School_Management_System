@@ -1,33 +1,35 @@
-<x-app-layout>
-    <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('Edit Teacher') }}
-            </h2>
-            <a href="{{ route('teachers.index') }}" class="inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 transition">
-                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-                </svg>
-                Back to List
-            </a>
+@extends('layouts.admin')
+
+@section('title', 'Edit Teacher')
+
+@section('content')
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Edit Teacher</h1>
+            <p class="text-gray-600 dark:text-gray-400 mt-1">Update teacher information</p>
         </div>
-    </x-slot>
+        <a href="{{ route('teachers.index') }}" class="inline-flex items-center px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+            </svg>
+            Back to List
+        </a>
+    </div>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    @if($errors->any())
-                        <div class="mb-4 px-4 py-3 rounded-md bg-red-50 dark:bg-red-900/50 text-red-800 dark:text-red-200">
-                            <ul class="list-disc list-inside">
-                                @foreach($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm">
+        <div class="p-6">
+            @if($errors->any())
+                <div class="mb-4 px-4 py-3 rounded-md bg-red-50 dark:bg-red-900/50 text-red-800 dark:text-red-200">
+                    <ul class="list-disc list-inside">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
-                    <form action="{{ route('teachers.update', $teacher) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('teachers.update', $teacher) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 
@@ -281,7 +283,7 @@
                             <a href="{{ route('teachers.index') }}" class="px-6 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition">
                                 Cancel
                             </a>
-                            <button type="submit" class="px-6 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition">
+                            <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
                                 Update Teacher
                             </button>
                         </div>
@@ -290,4 +292,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+@endsection

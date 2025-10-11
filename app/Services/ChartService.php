@@ -20,12 +20,23 @@ class ChartService
      */
     public function getStudentEnrollmentTrend()
     {
-        $data = DB::table('students')
-            ->selectRaw('DATE_FORMAT(admission_date, "%Y-%m") as month, COUNT(*) as count')
-            ->where('admission_date', '>=', now()->subMonths(12))
-            ->groupBy(DB::raw('DATE_FORMAT(admission_date, "%Y-%m")'))
-            ->orderBy('month')
-            ->get();
+        $dbDriver = DB::connection()->getDriverName();
+        
+        if ($dbDriver === 'sqlite') {
+            $data = DB::table('students')
+                ->selectRaw('strftime("%Y-%m", admission_date) as month, COUNT(*) as count')
+                ->where('admission_date', '>=', now()->subMonths(12))
+                ->groupBy(DB::raw('strftime("%Y-%m", admission_date)'))
+                ->orderBy('month')
+                ->get();
+        } else {
+            $data = DB::table('students')
+                ->selectRaw('DATE_FORMAT(admission_date, "%Y-%m") as month, COUNT(*) as count')
+                ->where('admission_date', '>=', now()->subMonths(12))
+                ->groupBy(DB::raw('DATE_FORMAT(admission_date, "%Y-%m")'))
+                ->orderBy('month')
+                ->get();
+        }
 
         return [
             'labels' => $data->pluck('month')->toArray(),
@@ -89,13 +100,25 @@ class ChartService
      */
     public function getMonthlyFeeCollection()
     {
-        $data = DB::table('fee_collections')
-            ->selectRaw('DATE_FORMAT(payment_date, "%Y-%m") as month, 
-                         SUM(paid_amount) as total')
-            ->where('payment_date', '>=', now()->subMonths(12))
-            ->groupBy(DB::raw('DATE_FORMAT(payment_date, "%Y-%m")'))
-            ->orderBy('month')
-            ->get();
+        $dbDriver = DB::connection()->getDriverName();
+        
+        if ($dbDriver === 'sqlite') {
+            $data = DB::table('fee_collections')
+                ->selectRaw('strftime("%Y-%m", payment_date) as month, 
+                             SUM(paid_amount) as total')
+                ->where('payment_date', '>=', now()->subMonths(12))
+                ->groupBy(DB::raw('strftime("%Y-%m", payment_date)'))
+                ->orderBy('month')
+                ->get();
+        } else {
+            $data = DB::table('fee_collections')
+                ->selectRaw('DATE_FORMAT(payment_date, "%Y-%m") as month, 
+                             SUM(paid_amount) as total')
+                ->where('payment_date', '>=', now()->subMonths(12))
+                ->groupBy(DB::raw('DATE_FORMAT(payment_date, "%Y-%m")'))
+                ->orderBy('month')
+                ->get();
+        }
 
         return [
             'labels' => $data->pluck('month')->toArray(),
@@ -185,15 +208,29 @@ class ChartService
      */
     public function getTeacherWorkload()
     {
-        $data = DB::table('subject_assignments')
-            ->join('teachers', 'subject_assignments.teacher_id', '=', 'teachers.id')
-            ->selectRaw('CONCAT(teachers.first_name, " ", teachers.last_name) as teacher_name, 
-                         COUNT(*) as classes_count')
-            ->where('teachers.status', 'active')
-            ->groupBy('teachers.id', 'teacher_name')
-            ->orderByDesc('classes_count')
-            ->limit(10)
-            ->get();
+        $dbDriver = DB::connection()->getDriverName();
+        
+        if ($dbDriver === 'sqlite') {
+            $data = DB::table('subject_assignments')
+                ->join('teachers', 'subject_assignments.teacher_id', '=', 'teachers.id')
+                ->selectRaw('(teachers.first_name || " " || teachers.last_name) as teacher_name, 
+                             COUNT(*) as classes_count')
+                ->where('teachers.status', 'active')
+                ->groupBy('teachers.id', 'teacher_name')
+                ->orderByDesc('classes_count')
+                ->limit(10)
+                ->get();
+        } else {
+            $data = DB::table('subject_assignments')
+                ->join('teachers', 'subject_assignments.teacher_id', '=', 'teachers.id')
+                ->selectRaw('CONCAT(teachers.first_name, " ", teachers.last_name) as teacher_name, 
+                             COUNT(*) as classes_count')
+                ->where('teachers.status', 'active')
+                ->groupBy('teachers.id', 'teacher_name')
+                ->orderByDesc('classes_count')
+                ->limit(10)
+                ->get();
+        }
 
         return [
             'labels' => $data->pluck('teacher_name')->toArray(),
@@ -214,13 +251,25 @@ class ChartService
      */
     public function getLibraryCirculation($months = 6)
     {
-        $data = DB::table('book_issues')
-            ->selectRaw('DATE_FORMAT(issue_date, "%Y-%m") as month, 
-                         COUNT(*) as issues')
-            ->where('issue_date', '>=', now()->subMonths($months))
-            ->groupBy(DB::raw('DATE_FORMAT(issue_date, "%Y-%m")'))
-            ->orderBy('month')
-            ->get();
+        $dbDriver = DB::connection()->getDriverName();
+        
+        if ($dbDriver === 'sqlite') {
+            $data = DB::table('book_issues')
+                ->selectRaw('strftime("%Y-%m", issue_date) as month, 
+                             COUNT(*) as issues')
+                ->where('issue_date', '>=', now()->subMonths($months))
+                ->groupBy(DB::raw('strftime("%Y-%m", issue_date)'))
+                ->orderBy('month')
+                ->get();
+        } else {
+            $data = DB::table('book_issues')
+                ->selectRaw('DATE_FORMAT(issue_date, "%Y-%m") as month, 
+                             COUNT(*) as issues')
+                ->where('issue_date', '>=', now()->subMonths($months))
+                ->groupBy(DB::raw('DATE_FORMAT(issue_date, "%Y-%m")'))
+                ->orderBy('month')
+                ->get();
+        }
 
         return [
             'labels' => $data->pluck('month')->toArray(),
@@ -268,23 +317,43 @@ class ChartService
     public function getIncomeVsExpense($months = 12)
     {
         $startDate = now()->subMonths($months)->startOfMonth();
+        $dbDriver = DB::connection()->getDriverName();
         
-        $income = DB::table('fee_collections')
-            ->selectRaw('DATE_FORMAT(payment_date, "%Y-%m") as month, 
-                         SUM(paid_amount) as total')
-            ->where('payment_date', '>=', $startDate)
-            ->groupBy(DB::raw('DATE_FORMAT(payment_date, "%Y-%m")'))
-            ->orderBy('month')
-            ->pluck('total', 'month');
+        if ($dbDriver === 'sqlite') {
+            $income = DB::table('fee_collections')
+                ->selectRaw('strftime("%Y-%m", payment_date) as month, 
+                             SUM(paid_amount) as total')
+                ->where('payment_date', '>=', $startDate)
+                ->groupBy(DB::raw('strftime("%Y-%m", payment_date)'))
+                ->orderBy('month')
+                ->pluck('total', 'month');
 
-        $expenses = DB::table('expenses')
-            ->selectRaw('DATE_FORMAT(expense_date, "%Y-%m") as month, 
-                         SUM(amount) as total')
-            ->where('expense_date', '>=', $startDate)
-            ->where('status', 'approved')
-            ->groupBy(DB::raw('DATE_FORMAT(expense_date, "%Y-%m")'))
-            ->orderBy('month')
-            ->pluck('total', 'month');
+            $expenses = DB::table('expenses')
+                ->selectRaw('strftime("%Y-%m", expense_date) as month, 
+                             SUM(amount) as total')
+                ->where('expense_date', '>=', $startDate)
+                ->where('status', 'approved')
+                ->groupBy(DB::raw('strftime("%Y-%m", expense_date)'))
+                ->orderBy('month')
+                ->pluck('total', 'month');
+        } else {
+            $income = DB::table('fee_collections')
+                ->selectRaw('DATE_FORMAT(payment_date, "%Y-%m") as month, 
+                             SUM(paid_amount) as total')
+                ->where('payment_date', '>=', $startDate)
+                ->groupBy(DB::raw('DATE_FORMAT(payment_date, "%Y-%m")'))
+                ->orderBy('month')
+                ->pluck('total', 'month');
+
+            $expenses = DB::table('expenses')
+                ->selectRaw('DATE_FORMAT(expense_date, "%Y-%m") as month, 
+                             SUM(amount) as total')
+                ->where('expense_date', '>=', $startDate)
+                ->where('status', 'approved')
+                ->groupBy(DB::raw('DATE_FORMAT(expense_date, "%Y-%m")'))
+                ->orderBy('month')
+                ->pluck('total', 'month');
+        }
 
         // Merge months
         $allMonths = $income->keys()->merge($expenses->keys())->unique()->sort()->values();

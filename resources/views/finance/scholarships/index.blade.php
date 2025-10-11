@@ -1,26 +1,31 @@
-<x-app-layout>
-    <div class="min-h-screen bg-gray-100 dark:bg-gray-900 py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center mb-6">
-                <div>
-                    <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Scholarships</h1>
-                    <p class="text-gray-600 dark:text-gray-400 mt-1">Manage student scholarships and financial aid</p>
-                </div>
-                <div class="flex space-x-3">
-                    <a href="{{ route('scholarships.assign') }}" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg">
-                        <i class="fas fa-user-plus mr-2"></i>Assign Scholarship
-                    </a>
-                    <a href="{{ route('scholarships.create') }}" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg">
-                        <i class="fas fa-plus mr-2"></i>Create Scholarship
-                    </a>
-                </div>
-            </div>
+@extends('layouts.admin')
 
-            @if(session('success'))
-                <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded">
-                    {{ session('success') }}
-                </div>
-            @endif
+@section('title', 'Scholarships')
+
+@section('content')
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Scholarships</h1>
+            <p class="text-gray-600 dark:text-gray-400 mt-1">Manage student scholarships and financial aid</p>
+        </div>
+        <div class="flex space-x-3">
+            <a href="{{ route('scholarships.assign') }}" class="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
+                </svg>
+                Assign Scholarship
+            </a>
+            <a href="{{ route('scholarships.create') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                </svg>
+                Create Scholarship
+            </a>
+        </div>
+    </div>
+
+    <div class="space-y-6">
 
             <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
                 <div class="overflow-x-auto">
@@ -111,6 +116,5 @@
                     {{ $scholarships->links() }}
                 </div>
             </div>
-        </div>
     </div>
-</x-app-layout>
+@endsection

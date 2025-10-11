@@ -1,16 +1,17 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', 'Report Cards')
 
 @section('content')
-<div class="py-6">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Header -->
-        <div class="mb-6">
-            <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Student Report Cards</h1>
-            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">View and download student report cards</p>
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Student Report Cards</h1>
+            <p class="text-gray-600 dark:text-gray-400 mt-1">View and download student report cards</p>
         </div>
+    </div>
 
+    <div class="space-y-6">
         <!-- Filters -->
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-6">
             <div class="p-6">

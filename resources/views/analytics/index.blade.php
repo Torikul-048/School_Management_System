@@ -1,144 +1,130 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', 'Analytics Dashboard')
 
 @section('content')
-<div class="container-fluid">
-    <div class="row mb-4">
-        <div class="col-md-12">
-            <h2 class="mb-0">Analytics Dashboard</h2>
-            <p class="text-muted">Comprehensive analytics and insights</p>
-        </div>
+<div class="container mx-auto px-4 py-6">
+    <div class="mb-6">
+        <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Analytics Dashboard</h1>
+        <p class="text-gray-600 dark:text-gray-400 text-sm mt-1">Comprehensive analytics and insights</p>
     </div>
 
     <!-- Charts Grid -->
-    <div class="row">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
         <!-- Student Enrollment Trend -->
-        <div class="col-md-6 mb-4">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">Student Enrollment Trend</h5>
-                </div>
-                <div class="card-body">
-                    <canvas id="enrollmentChart"></canvas>
-                </div>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Student Enrollment Trend</h3>
+            </div>
+            <div class="p-6">
+                <canvas id="enrollmentChart"></canvas>
             </div>
         </div>
 
         <!-- Attendance Trend -->
-        <div class="col-md-6 mb-4">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">Attendance Trend (Last 30 Days)</h5>
-                </div>
-                <div class="card-body">
-                    <canvas id="attendanceChart"></canvas>
-                </div>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Attendance Trend (Last 30 Days)</h3>
+            </div>
+            <div class="p-6">
+                <canvas id="attendanceChart"></canvas>
             </div>
         </div>
 
         <!-- Fee Collection -->
-        <div class="col-md-6 mb-4">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">Monthly Fee Collection</h5>
-                </div>
-                <div class="card-body">
-                    <canvas id="feeChart"></canvas>
-                </div>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Monthly Fee Collection</h3>
+            </div>
+            <div class="p-6">
+                <canvas id="feeChart"></canvas>
             </div>
         </div>
 
         <!-- Income vs Expense -->
-        <div class="col-md-6 mb-4">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">Income vs Expense (Last 12 Months)</h5>
-                </div>
-                <div class="card-body">
-                    <canvas id="incomeExpenseChart"></canvas>
-                </div>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Income vs Expense (Last 12 Months)</h3>
+            </div>
+            <div class="p-6">
+                <canvas id="incomeExpenseChart"></canvas>
             </div>
         </div>
 
         <!-- Class Distribution -->
-        <div class="col-md-6 mb-4">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">Student Distribution by Class</h5>
-                </div>
-                <div class="card-body">
-                    <canvas id="classDistributionChart"></canvas>
-                </div>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Student Distribution by Class</h3>
+            </div>
+            <div class="p-6">
+                <canvas id="classDistributionChart"></canvas>
             </div>
         </div>
 
         <!-- Gender Distribution -->
-        <div class="col-md-6 mb-4">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">Gender Distribution</h5>
-                </div>
-                <div class="card-body">
-                    <canvas id="genderChart"></canvas>
-                </div>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Gender Distribution</h3>
+            </div>
+            <div class="p-6">
+                <canvas id="genderChart"></canvas>
             </div>
         </div>
 
         <!-- Teacher Workload -->
-        <div class="col-md-6 mb-4">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">Teacher Workload (Top 10)</h5>
-                </div>
-                <div class="card-body">
-                    <canvas id="workloadChart"></canvas>
-                </div>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden lg:col-span-2">
+            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Teacher Workload (Top 10)</h3>
+            </div>
+            <div class="p-6">
+                <canvas id="workloadChart"></canvas>
             </div>
         </div>
     </div>
 
     <!-- Quick Links -->
-    <div class="row mt-4">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">Detailed Analytics</h5>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-3 mb-2">
-                            <a href="{{ route('analytics.students') }}" class="btn btn-outline-primary btn-block">
-                                <i class="fas fa-users"></i> Student Analytics
-                            </a>
-                        </div>
-                        <div class="col-md-3 mb-2">
-                            <a href="{{ route('analytics.attendance') }}" class="btn btn-outline-success btn-block">
-                                <i class="fas fa-calendar-check"></i> Attendance Analytics
-                            </a>
-                        </div>
-                        <div class="col-md-3 mb-2">
-                            <a href="{{ route('analytics.financial') }}" class="btn btn-outline-warning btn-block">
-                                <i class="fas fa-dollar-sign"></i> Financial Analytics
-                            </a>
-                        </div>
-                        <div class="col-md-3 mb-2">
-                            <a href="{{ route('analytics.teachers') }}" class="btn btn-outline-info btn-block">
-                                <i class="fas fa-chalkboard-teacher"></i> Teacher Analytics
-                            </a>
-                        </div>
-                        <div class="col-md-3 mb-2">
-                            <a href="{{ route('analytics.performance') }}" class="btn btn-outline-danger btn-block">
-                                <i class="fas fa-chart-line"></i> Performance Analytics
-                            </a>
-                        </div>
-                        <div class="col-md-3 mb-2">
-                            <a href="{{ route('analytics.library') }}" class="btn btn-outline-secondary btn-block">
-                                <i class="fas fa-book"></i> Library Analytics
-                            </a>
-                        </div>
-                    </div>
-                </div>
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+            <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Detailed Analytics</h3>
+        </div>
+        <div class="p-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+                <a href="{{ route('analytics.students') }}" class="flex items-center justify-center px-4 py-3 bg-blue-100 hover:bg-blue-200 dark:bg-blue-900 dark:hover:bg-blue-800 text-blue-700 dark:text-blue-200 rounded-lg transition-colors">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+                    </svg>
+                    <span class="text-sm font-medium">Students</span>
+                </a>
+                <a href="{{ route('analytics.attendance') }}" class="flex items-center justify-center px-4 py-3 bg-green-100 hover:bg-green-200 dark:bg-green-900 dark:hover:bg-green-800 text-green-700 dark:text-green-200 rounded-lg transition-colors">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+                    </svg>
+                    <span class="text-sm font-medium">Attendance</span>
+                </a>
+                <a href="{{ route('analytics.financial') }}" class="flex items-center justify-center px-4 py-3 bg-yellow-100 hover:bg-yellow-200 dark:bg-yellow-900 dark:hover:bg-yellow-800 text-yellow-700 dark:text-yellow-200 rounded-lg transition-colors">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span class="text-sm font-medium">Financial</span>
+                </a>
+                <a href="{{ route('analytics.teachers') }}" class="flex items-center justify-center px-4 py-3 bg-purple-100 hover:bg-purple-200 dark:bg-purple-900 dark:hover:bg-purple-800 text-purple-700 dark:text-purple-200 rounded-lg transition-colors">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                    <span class="text-sm font-medium">Teachers</span>
+                </a>
+                <a href="{{ route('analytics.performance') }}" class="flex items-center justify-center px-4 py-3 bg-red-100 hover:bg-red-200 dark:bg-red-900 dark:hover:bg-red-800 text-red-700 dark:text-red-200 rounded-lg transition-colors">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"/>
+                    </svg>
+                    <span class="text-sm font-medium">Performance</span>
+                </a>
+                <a href="{{ route('analytics.library') }}" class="flex items-center justify-center px-4 py-3 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-lg transition-colors">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                    </svg>
+                    <span class="text-sm font-medium">Library</span>
+                </a>
             </div>
         </div>
     </div>

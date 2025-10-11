@@ -1,9 +1,18 @@
-<x-app-layout>
-    <div class="min-h-screen bg-gray-100 dark:bg-gray-900 py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">Financial Reports</h1>
+@extends('layouts.admin')
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+@section('title', 'Financial Reports')
+
+@section('content')
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Financial Reports</h1>
+            <p class="text-gray-600 dark:text-gray-400 mt-1">Generate and view financial reports</p>
+        </div>
+    </div>
+
+    <div class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Income Report -->
                 <a href="{{ route('finance.reports.income') }}" class="bg-gradient-to-r from-green-500 to-green-600 rounded-lg shadow-lg p-6 text-white hover:shadow-xl transition-all">
                     <div class="flex items-center justify-between mb-4">
@@ -84,6 +93,5 @@
                     <div class="text-2xl font-bold text-yellow-600">0</div>
                 </div>
             </div>
-        </div>
     </div>
-</x-app-layout>
+@endsection

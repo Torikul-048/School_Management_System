@@ -20,7 +20,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     
     // Admin Dashboard
     Route::get('/admin/dashboard', [DashboardController::class, 'adminDashboard'])
-        ->middleware('role:Super Admin,Admin')
+        ->middleware('role:Admin')
         ->name('admin.dashboard');
     
     // Teacher Dashboard
@@ -73,7 +73,7 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\TeacherLeaveController;
 
-Route::middleware(['auth', 'role:Super Admin|Admin'])->group(function () {
+Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::resource('students', StudentController::class);
     Route::get('students/{student}/id-card', [StudentController::class, 'idCard'])->name('students.id-card');
     Route::patch('students/{student}/promote', [StudentController::class, 'promote'])->name('students.promote');

@@ -1,34 +1,23 @@
 @extends('layouts.admin')
 
-@section('title', 'Subject Management')
+@section('title', 'Subjects')
 
 @section('content')
-<div class="container mx-auto px-4 py-6">
-    <!-- Page Header -->
-    <div class="flex justify-between items-center mb-6">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-6">
         <div>
-            <h1 class="text-3xl font-bold text-gray-900">Subject Management</h1>
-            <p class="text-gray-600 mt-1">Manage subjects, assign to classes and teachers</p>
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Subjects</h1>
+            <p class="text-gray-600 dark:text-gray-400 mt-1">Manage subjects, assign to classes and teachers</p>
         </div>
-        <a href="{{ route('subjects.create') }}" class="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:shadow-lg transition font-medium">
-            <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+        <a href="{{ route('subjects.create') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
             </svg>
             Add New Subject
         </a>
     </div>
 
-    <!-- Success Message -->
-    @if(session('success'))
-    <div class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-6">
-        {{ session('success') }}
-    </div>
-    @endif
-
-    <!-- Filters -->
-    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-        <form method="GET" action="{{ route('subjects.index') }}" class="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div>
+    <div class="space-y-6">
                 <label class="block text-sm font-medium text-gray-700 mb-2">Search</label>
                 <input type="text" name="search" value="{{ request('search') }}" placeholder="Subject name or code..."
                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
@@ -135,5 +124,5 @@
         </div>
         @endif
     </div>
-</div>
+    </div>
 @endsection

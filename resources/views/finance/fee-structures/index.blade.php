@@ -1,24 +1,24 @@
-<x-app-layout>
-    <div class="min-h-screen bg-gray-100 dark:bg-gray-900 py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Header -->
-            <div class="flex justify-between items-center mb-6">
-                <div>
-                    <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Fee Structures</h1>
-                    <p class="text-gray-600 dark:text-gray-400 mt-1">Manage fee structures for different categories</p>
-                </div>
-                <a href="{{ route('fee-structures.create') }}" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-semibold shadow-lg transition-all">
-                    <i class="fas fa-plus mr-2"></i>Add Fee Structure
-                </a>
-            </div>
+@extends('layouts.admin')
 
-            @if(session('success'))
-                <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded">
-                    {{ session('success') }}
-                </div>
-            @endif
+@section('title', 'Fee Structures')
 
-            <!-- Fee Structures Table -->
+@section('content')
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Fee Structures</h1>
+            <p class="text-gray-600 dark:text-gray-400 mt-1">Manage fee structures for different categories</p>
+        </div>
+        <a href="{{ route('fee-structures.create') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+            Add Fee Structure
+        </a>
+    </div>
+
+    <div class="space-y-6">
+        <!-- Fee Structures Table -->
             <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
@@ -95,6 +95,5 @@
                     {{ $feeStructures->links() }}
                 </div>
             </div>
-        </div>
     </div>
-</x-app-layout>
+@endsection

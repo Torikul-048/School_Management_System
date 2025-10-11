@@ -58,11 +58,7 @@ class RolePermissionSeeder extends Seeder
 
         // Create Roles and Assign Permissions
         
-        // Super Admin - Full Access
-        $superAdmin = Role::create(['name' => 'Super Admin']);
-        $superAdmin->givePermissionTo(Permission::all());
-
-        // Admin - Almost Full Access
+        // Admin - Full Access
         $admin = Role::create(['name' => 'Admin']);
         $admin->givePermissionTo(Permission::all());
 
@@ -113,37 +109,17 @@ class RolePermissionSeeder extends Seeder
             'report-list',
         ]);
 
-        // Create Default Super Admin User
-        $superAdminUser = User::create([
-            'name' => 'Super Admin',
-            'email' => 'admin@schoolsystem.com',
+        // Create Main Admin User
+        $adminUser = User::create([
+            'name' => 'Admin',
+            'email' => 'admin@school.com',
             'password' => Hash::make('password'),
             'phone' => '1234567890',
             'status' => 'active',
         ]);
-        $superAdminUser->assignRole($superAdmin);
-
-        // Create Main Admin User (admin@school.com)
-        $mainAdmin = User::create([
-            'name' => 'School Admin',
-            'email' => 'admin@school.com',
-            'password' => Hash::make('password'),
-            'phone' => '1234567899',
-            'status' => 'active',
-        ]);
-        $mainAdmin->assignRole($admin);
+        $adminUser->assignRole($admin);
 
         // Create Demo Users for Each Role
-        
-        // Demo Admin
-        $adminUser = User::create([
-            'name' => 'Admin User',
-            'email' => 'admin@demo.com',
-            'password' => Hash::make('password'),
-            'phone' => '1234567891',
-            'status' => 'active',
-        ]);
-        $adminUser->assignRole($admin);
 
         // Demo Teacher
         $teacherUser = User::create([

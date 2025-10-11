@@ -44,6 +44,7 @@ class PayrollController extends Controller
         $stats = [
             'total' => Payroll::count(),
             'pending' => Payroll::where('status', 'pending')->count(),
+            'processed' => Payroll::where('status', 'processed')->count(),
             'paid' => Payroll::where('status', 'paid')->count(),
             'total_amount' => Payroll::where('status', 'paid')->sum('net_salary'),
         ];

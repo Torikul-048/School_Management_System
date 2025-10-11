@@ -1,15 +1,26 @@
-<x-app-layout>
-    <div class="min-h-screen bg-gray-100 dark:bg-gray-900 py-8">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-6">
-                <a href="{{ route('fee-collections.index') }}" class="text-indigo-600 hover:text-indigo-800">
-                    <i class="fas fa-arrow-left mr-2"></i>Back to Collections
-                </a>
+@extends('layouts.admin')
+
+@section('title', 'Collect Fee')
+
+@section('content')
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-6">
+        <div class="flex items-center space-x-4">
+            <a href="{{ route('fee-collections.index') }}" class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                </svg>
+            </a>
+            <div>
+                <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Collect Fee</h1>
+                <p class="text-gray-600 dark:text-gray-400 mt-1">Record fee payment from student</p>
             </div>
+        </div>
+    </div>
 
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Collect Fee</h2>
-
+    <div class="space-y-6">
+        <div class="max-w-4xl">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
                 <form action="{{ route('fee-collections.store') }}" method="POST" id="feeCollectionForm">
                     @csrf
 
@@ -238,4 +249,4 @@
             }
         });
     </script>
-</x-app-layout>
+@endsection

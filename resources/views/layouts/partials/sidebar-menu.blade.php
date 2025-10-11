@@ -8,7 +8,7 @@
 
 @role('Super Admin|Admin')
 {{-- Students Management --}}
-<div x-data="{ open: {{ request()->is('students*') ? 'true' : 'false' }} }">
+<div x-data="{ open: {{ request()->is('students*') || request()->is('admissions*') ? 'true' : 'false' }} }">
     <button @click="open = !open" class="flex items-center justify-between w-full px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700">
         <div class="flex items-center space-x-3">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -29,7 +29,7 @@
 </div>
 
 {{-- Faculty & Staff Management --}}
-<div x-data="{ open: {{ request()->is('teachers*') || request()->is('payroll*') || request()->is('teacher-leaves*') ? 'true' : 'false' }} }">
+<div x-data="{ open: {{ request()->is('teachers*') || request()->is('payroll*') || request()->is('teacher-leaves*') || request()->is('salary-structure*') ? 'true' : 'false' }} }">
     <button @click="open = !open" class="flex items-center justify-between w-full px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700">
         <div class="flex items-center space-x-3">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -42,7 +42,7 @@
         </svg>
     </button>
     <div x-show="open" x-collapse class="ml-8 mt-2 space-y-2">
-        <a href="{{ route('teachers.index') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->is('teachers') && !request()->is('teachers/*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">All Teachers</a>
+        <a href="{{ route('teachers.index') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->is('teachers*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">All Teachers</a>
         <a href="{{ route('teachers.create') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->is('teachers/create') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">Add Teacher</a>
         <a href="{{ route('payroll.index') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->is('payroll*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">Payroll</a>
         <a href="{{ route('teacher-leaves.index') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->is('teacher-leaves*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">Leave Management</a>
@@ -167,7 +167,7 @@
 
 {{-- Library --}}
 @role('Super Admin|Admin|Librarian')
-<div x-data="{ open: {{ request()->is('library*') ? 'true' : 'false' }} }">
+<div x-data="{ open: {{ request()->is('books*') || request()->is('book-issues*') || request()->routeIs('books.*') || request()->routeIs('book-issues.*') ? 'true' : 'false' }} }" x-init="$watch('open', value => open = {{ request()->is('books*') || request()->is('book-issues*') || request()->routeIs('books.*') || request()->routeIs('book-issues.*') ? 'true' : 'open' }})">
     <button @click="open = !open" class="flex items-center justify-between w-full px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700">
         <div class="flex items-center space-x-3">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -180,17 +180,17 @@
         </svg>
     </button>
     <div x-show="open" x-collapse class="ml-8 mt-2 space-y-2">
-        <a href="#" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">All Books</a>
-        <a href="#" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">Add Book</a>
-        <a href="#" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">Issue Book</a>
-        <a href="#" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">Return Book</a>
-        <a href="#" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700">Overdue Books</a>
+        <a href="{{ route('books.index') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->routeIs('books.index') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">All Books</a>
+        <a href="{{ route('books.create') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->routeIs('books.create') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">Add Book</a>
+        <a href="{{ route('book-issues.create') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->routeIs('book-issues.create') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">Issue Book</a>
+        <a href="{{ route('book-issues.index') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->routeIs('book-issues.index') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">Return Book</a>
+        <a href="{{ route('book-issues.overdue') }}" class="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->routeIs('book-issues.overdue') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">Overdue Books</a>
     </div>
 </div>
 @endrole
 
 {{-- Announcements --}}
-<a href="#" class="flex items-center space-x-3 px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700">
+<a href="{{ route('announcements.index') }}" class="flex items-center space-x-3 px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700 {{ request()->routeIs('announcements*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">
     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
         <path d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"/>
     </svg>
@@ -199,7 +199,7 @@
 
 {{-- Reports --}}
 @role('Super Admin|Admin')
-<a href="#" class="flex items-center space-x-3 px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700">
+<a href="{{ route('reports.index') }}" class="flex items-center space-x-3 px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700 {{ request()->routeIs('reports*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">
     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
         <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
     </svg>
@@ -209,7 +209,7 @@
 
 {{-- Settings --}}
 @role('Super Admin|Admin')
-<a href="#" class="flex items-center space-x-3 px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700">
+<a href="{{ route('profile.edit') }}" class="flex items-center space-x-3 px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700 {{ request()->routeIs('profile*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">
     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
         <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"></path>
     </svg>

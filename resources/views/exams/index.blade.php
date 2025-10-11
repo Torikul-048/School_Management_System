@@ -1,26 +1,25 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', 'Exam Schedule')
 
 @section('content')
-<div class="py-6">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Header -->
-        <div class="mb-6 flex justify-between items-center">
-            <div>
-                <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Exam Schedule</h1>
-                <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">Manage examination schedules and timetables</p>
-            </div>
-            @role('Super Admin|Admin|Teacher')
-            <a href="{{ route('exams.create') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 active:bg-blue-900 focus:outline-none focus:border-blue-900 focus:ring focus:ring-blue-300 disabled:opacity-25 transition">
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                </svg>
-                Create Exam
-            </a>
-            @endrole
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Exam Schedule</h1>
+            <p class="text-gray-600 dark:text-gray-400 mt-1">Manage examination schedules and timetables</p>
         </div>
+        @role('Super Admin|Admin|Teacher')
+        <a href="{{ route('exams.create') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+            Create Exam
+        </a>
+        @endrole
+    </div>
 
+    <div class="space-y-6">
         <!-- Filters -->
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-6">
             <div class="p-6">

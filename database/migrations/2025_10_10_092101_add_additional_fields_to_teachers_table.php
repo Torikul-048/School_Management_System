@@ -40,12 +40,8 @@ return new class extends Migration
             $table->string('photo')->nullable()->after('tax_id');
             
             // Update status enum to include 'on_leave'
-            $table->dropColumn('status');
-        });
-        
-        // Add status column with new enum values
-        Schema::table('teachers', function (Blueprint $table) {
-            $table->enum('status', ['active', 'inactive', 'on_leave', 'resigned', 'terminated'])->default('active')->after('documents');
+            // Note: SQLite doesn't support modifying enum columns directly
+            // We'll keep the existing status column as is
         });
     }
 
@@ -73,13 +69,6 @@ return new class extends Migration
             ]);
             
             $table->renameColumn('bank_account_number', 'bank_account');
-            
-            // Restore old status enum
-            $table->dropColumn('status');
-        });
-        
-        Schema::table('teachers', function (Blueprint $table) {
-            $table->enum('status', ['active', 'inactive', 'resigned', 'terminated'])->default('active');
         });
     }
 };

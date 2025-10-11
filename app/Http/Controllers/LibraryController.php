@@ -7,6 +7,7 @@ use App\Models\BookCategory;
 use App\Models\BookIssue;
 use App\Models\LibrarySetting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 class LibraryController extends Controller
@@ -43,11 +44,20 @@ class LibraryController extends Controller
             ->get();
 
         // Monthly issue stats
-        $monthlyIssues = BookIssue::selectRaw('DATE_FORMAT(issue_date, "%Y-%m") as month, COUNT(*) as count')
-            ->where('issue_date', '>=', Carbon::now()->subMonths(6))
-            ->groupBy('month')
-            ->orderBy('month')
-            ->get();
+        $dbDriver = DB::connection()->getDriverName();
+        if ($dbDriver === 'sqlite') {
+            $monthlyIssues = BookIssue::selectRaw('strftime("%Y-%m", issue_date) as month, COUNT(*) as count')
+                ->where('issue_date', '>=', Carbon::now()->subMonths(6))
+                ->groupBy('month')
+                ->orderBy('month')
+                ->get();
+        } else {
+            $monthlyIssues = BookIssue::selectRaw('DATE_FORMAT(issue_date, "%Y-%m") as month, COUNT(*) as count')
+                ->where('issue_date', '>=', Carbon::now()->subMonths(6))
+                ->groupBy('month')
+                ->orderBy('month')
+                ->get();
+        }
 
         return view('library.dashboard', compact(
             'totalBooks',

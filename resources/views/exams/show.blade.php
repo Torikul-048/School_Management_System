@@ -1,25 +1,22 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', $exam->name)
 
 @section('content')
-<div class="py-6">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Header -->
-        <div class="mb-6">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-4">
-                    <a href="{{ route('exams.index') }}" class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-                        </svg>
-                    </a>
-                    <div>
-                        <h1 class="text-3xl font-bold text-gray-900 dark:text-white">{{ $exam->name }}</h1>
-                        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{ $exam->academicYear->year }} - {{ ucfirst(str_replace('_', ' ', $exam->type)) }}</p>
-                    </div>
-                </div>
-                <div class="flex items-center space-x-3">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-6">
+        <div class="flex items-center space-x-4">
+            <a href="{{ route('exams.index') }}" class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                </svg>
+            </a>
+            <div>
+                <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">{{ $exam->name }}</h1>
+                <p class="text-gray-600 dark:text-gray-400 mt-1">{{ $exam->academicYear->year }} - {{ ucfirst(str_replace('_', ' ', $exam->type)) }}</p>
+            </div>
+        </div>
+        <div class="flex items-center space-x-3">
                     @switch($exam->status)
                         @case('scheduled')
                             <span class="px-3 py-1 text-sm font-semibold rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300">Scheduled</span>

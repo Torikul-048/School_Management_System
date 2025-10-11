@@ -15,18 +15,6 @@ class UserSeeder extends Seeder
     {
         $defaultPassword = Hash::make('password123');
 
-        // Super Admin
-        $superAdmin = User::create([
-            'name' => 'Super Administrator',
-            'email' => 'superadmin@school.com',
-            'password' => $defaultPassword,
-            'phone' => '1234567890',
-            'status' => 'active',
-        ]);
-        $superAdmin->assignRole('Super Admin');
-
-        $this->command->info('✅ Created Super Admin: superadmin@school.com');
-
         // Librarian
         $librarian = User::create([
             'name' => 'Library Manager',

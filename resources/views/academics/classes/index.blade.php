@@ -1,37 +1,28 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
-@section('title', 'Classes & Grades')
+@section('title', 'Classes & Sections')
 
 @section('content')
-<div class="container mx-auto px-4 py-6">
-    <!-- Breadcrumb -->
-    <nav class="mb-6 text-sm text-gray-600 dark:text-gray-400">
-        <ol class="flex items-center space-x-2">
-            <li><a href="{{ route('dashboard') }}" class="hover:text-blue-600">Dashboard</a></li>
-            <li><span class="mx-2">/</span></li>
-            <li class="text-gray-900 dark:text-gray-200">Classes</li>
-        </ol>
-    </nav>
-
     <!-- Header -->
-    <div class="flex justify-between items-center mb-6">
+    <div class="flex items-center justify-between mb-6">
         <div>
-            <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Classes & Grades</h1>
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Classes & Sections</h1>
             <p class="text-gray-600 dark:text-gray-400 mt-1">Manage classes, grades and sections</p>
         </div>
-        <a href="{{ route('classes.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg flex items-center space-x-2 shadow-lg hover:shadow-xl transition-all">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <a href="{{ route('classes.create') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
             </svg>
-            <span>Add New Class</span>
+            Add New Class
         </a>
     </div>
 
-    @if(session('success'))
-        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg mb-6" role="alert">
-            <span class="block sm:inline">{{ session('success') }}</span>
-        </div>
-    @endif
+    <div class="space-y-6">
+        @if(session('success'))
+            <div class="bg-green-50 dark:bg-green-900/50 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-200 px-4 py-3 rounded-lg">
+                {{ session('success') }}
+            </div>
+        @endif
 
     <!-- Classes Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -139,5 +130,5 @@
             {{ $classes->links() }}
         </div>
     @endif
-</div>
+    </div>
 @endsection

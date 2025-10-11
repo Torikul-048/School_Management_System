@@ -44,7 +44,7 @@
             </div>
 
             <!-- Navigation -->
-            <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto" style="max-height: calc(100vh - 4rem);">
+            <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto" style="max-height: calc(100vh - 4rem);" id="sidebar-nav">
                 @include('layouts.partials.sidebar-menu')
             </nav>
         </aside>
@@ -206,6 +206,34 @@
             </main>
         </div>
     </div>
+
+    <script>
+        // Preserve sidebar scroll position
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.getElementById('sidebar-nav');
+            
+            // Restore scroll position on page load
+            const savedScrollPosition = sessionStorage.getItem('sidebarScrollPosition');
+            if (savedScrollPosition !== null && sidebar) {
+                sidebar.scrollTop = parseInt(savedScrollPosition, 10);
+            }
+            
+            // Save scroll position before navigating away
+            if (sidebar) {
+                sidebar.addEventListener('scroll', function() {
+                    sessionStorage.setItem('sidebarScrollPosition', sidebar.scrollTop);
+                });
+                
+                // Also save on click of any link
+                const sidebarLinks = sidebar.querySelectorAll('a');
+                sidebarLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        sessionStorage.setItem('sidebarScrollPosition', sidebar.scrollTop);
+                    });
+                });
+            }
+        });
+    </script>
 
     @stack('scripts')
 </body>

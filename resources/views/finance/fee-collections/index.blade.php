@@ -1,9 +1,11 @@
-<x-app-layout>
-    <div class="min-h-screen bg-gray-100 dark:bg-gray-900 py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Header with Stats -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                <div class="bg-gradient-to-r from-green-500 to-green-600 rounded-lg shadow-lg p-6 text-white">
+@extends('layouts.admin')
+
+@section('title', 'Fee Collections')
+
+@section('content')
+    <!-- Header with Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+        <div class="bg-gradient-to-r from-green-500 to-green-600 rounded-lg shadow-sm p-6 text-white">
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-sm opacity-90">Total Collected</p>
@@ -132,6 +134,4 @@
                     {{ $collections->links() }}
                 </div>
             </div>
-        </div>
-    </div>
-</x-app-layout>
+@endsection

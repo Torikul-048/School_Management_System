@@ -144,38 +144,25 @@
             </div>
 
             <div class="space-y-3">
-                <!-- Super Admin -->
-                <div class="credential-card bg-gradient-to-r from-red-50 to-red-100 border-l-4 border-red-500 p-4 rounded-lg" onclick="fillCredentials('admin@schoolsystem.com', 'password')">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="font-semibold text-gray-800">Super Admin</p>
-                            <p class="text-sm text-gray-600">admin@schoolsystem.com</p>
-                        </div>
-                        <div class="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
-                            Full Access
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Admin -->
-                <div class="credential-card bg-gradient-to-r from-blue-50 to-blue-100 border-l-4 border-blue-500 p-4 rounded-lg" onclick="fillCredentials('admin@school.com', 'password')">
+                <div class="credential-card bg-gradient-to-r from-blue-50 to-blue-100 border-l-4 border-blue-500 p-4 rounded-lg" onclick="fillCredentials('admin@school.com', 'password123')">
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="font-semibold text-gray-800">School Admin</p>
                             <p class="text-sm text-gray-600">admin@school.com</p>
                         </div>
                         <div class="bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
-                            Admin
+                            Full Access
                         </div>
                     </div>
                 </div>
 
                 <!-- Teacher -->
-                <div class="credential-card bg-gradient-to-r from-green-50 to-green-100 border-l-4 border-green-500 p-4 rounded-lg" onclick="fillCredentials('teacher@demo.com', 'password')">
+                <div class="credential-card bg-gradient-to-r from-green-50 to-green-100 border-l-4 border-green-500 p-4 rounded-lg" onclick="fillCredentials('teacher@school.com', 'password123')">
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="font-semibold text-gray-800">Teacher</p>
-                            <p class="text-sm text-gray-600">teacher@demo.com</p>
+                            <p class="text-sm text-gray-600">teacher@school.com</p>
                         </div>
                         <div class="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
                             Teacher
@@ -184,11 +171,11 @@
                 </div>
 
                 <!-- Student -->
-                <div class="credential-card bg-gradient-to-r from-purple-50 to-purple-100 border-l-4 border-purple-500 p-4 rounded-lg" onclick="fillCredentials('student@demo.com', 'password')">
+                <div class="credential-card bg-gradient-to-r from-purple-50 to-purple-100 border-l-4 border-purple-500 p-4 rounded-lg" onclick="fillCredentials('student@school.com', 'password123')">
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="font-semibold text-gray-800">Student</p>
-                            <p class="text-sm text-gray-600">student@demo.com</p>
+                            <p class="text-sm text-gray-600">student@school.com</p>
                         </div>
                         <div class="bg-purple-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
                             Student
@@ -197,11 +184,11 @@
                 </div>
 
                 <!-- Parent -->
-                <div class="credential-card bg-gradient-to-r from-yellow-50 to-yellow-100 border-l-4 border-yellow-500 p-4 rounded-lg" onclick="fillCredentials('parent@demo.com', 'password')">
+                <div class="credential-card bg-gradient-to-r from-yellow-50 to-yellow-100 border-l-4 border-yellow-500 p-4 rounded-lg" onclick="fillCredentials('parent@school.com', 'password123')">
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="font-semibold text-gray-800">Parent</p>
-                            <p class="text-sm text-gray-600">parent@demo.com</p>
+                            <p class="text-sm text-gray-600">parent@school.com</p>
                         </div>
                         <div class="bg-yellow-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
                             Parent
@@ -210,11 +197,11 @@
                 </div>
 
                 <!-- Accountant -->
-                <div class="credential-card bg-gradient-to-r from-indigo-50 to-indigo-100 border-l-4 border-indigo-500 p-4 rounded-lg" onclick="fillCredentials('accountant@demo.com', 'password')">
+                <div class="credential-card bg-gradient-to-r from-indigo-50 to-indigo-100 border-l-4 border-indigo-500 p-4 rounded-lg" onclick="fillCredentials('accountant@school.com', 'password123')">
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="font-semibold text-gray-800">Accountant</p>
-                            <p class="text-sm text-gray-600">accountant@demo.com</p>
+                            <p class="text-sm text-gray-600">accountant@school.com</p>
                         </div>
                         <div class="bg-indigo-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
                             Accountant
@@ -223,11 +210,11 @@
                 </div>
 
                 <!-- Librarian -->
-                <div class="credential-card bg-gradient-to-r from-pink-50 to-pink-100 border-l-4 border-pink-500 p-4 rounded-lg" onclick="fillCredentials('librarian@demo.com', 'password')">
+                <div class="credential-card bg-gradient-to-r from-pink-50 to-pink-100 border-l-4 border-pink-500 p-4 rounded-lg" onclick="fillCredentials('librarian@school.com', 'password123')">
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="font-semibold text-gray-800">Librarian</p>
-                            <p class="text-sm text-gray-600">librarian@demo.com</p>
+                            <p class="text-sm text-gray-600">librarian@school.com</p>
                         </div>
                         <div class="bg-pink-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
                             Librarian
@@ -238,7 +225,7 @@
 
             <div class="mt-6 p-4 bg-amber-50 border-l-4 border-amber-500 rounded-lg">
                 <p class="text-sm text-amber-800">
-                    <span class="font-semibold">🔑 Default Password:</span> password
+                    <span class="font-semibold">🔑 Default Password:</span> password123
                 </p>
             </div>
         </div>

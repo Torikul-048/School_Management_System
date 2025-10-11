@@ -29,7 +29,7 @@ class DashboardController extends Controller
         $user = Auth::user();
         
         // Redirect to appropriate dashboard based on role
-        if ($user->hasRole('Super Admin') || $user->hasRole('Admin')) {
+        if ($user->hasRole('Admin')) {
             return $this->adminDashboard();
         } elseif ($user->hasRole('Teacher')) {
             return $this->teacherDashboard();
