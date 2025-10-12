@@ -34,7 +34,7 @@ class DashboardController extends Controller
         } elseif ($user->hasRole('Teacher')) {
             return $this->teacherDashboard();
         } elseif ($user->hasRole('Student')) {
-            return $this->studentDashboard();
+            return redirect()->route('student.dashboard');
         } elseif ($user->hasRole('Parent')) {
             return $this->parentDashboard();
         } elseif ($user->hasRole('Accountant')) {

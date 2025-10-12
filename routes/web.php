@@ -28,11 +28,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->middleware('role:Teacher')
         ->name('teacher.dashboard');
     
-    // Student Dashboard
-    Route::get('/student/dashboard', [DashboardController::class, 'studentDashboard'])
-        ->middleware('role:Student')
-        ->name('student.dashboard');
-    
     // Parent Dashboard
     Route::get('/parent/dashboard', [DashboardController::class, 'parentDashboard'])
         ->middleware('role:Parent')
@@ -405,6 +400,42 @@ Route::middleware(['auth', 'role:Teacher'])->prefix('teacher')->name('teacher.')
     Route::get('salary', [App\Http\Controllers\Teacher\SalaryController::class, 'index'])->name('salary.index');
     Route::get('salary/{payroll}/slip', [App\Http\Controllers\Teacher\SalaryController::class, 'slip'])->name('salary.slip');
     Route::get('salary/{payroll}/download', [App\Http\Controllers\Teacher\SalaryController::class, 'download'])->name('salary.download');
+});
+
+// Student Portal Routes
+Route::middleware(['auth', 'role:Student'])->prefix('student')->name('student.')->group(function () {
+    // Dashboard
+    Route::get('dashboard', [App\Http\Controllers\Student\StudentPortalController::class, 'dashboard'])->name('dashboard');
+    
+    // Profile
+    Route::get('profile', [App\Http\Controllers\Student\StudentPortalController::class, 'profile'])->name('profile');
+    Route::put('profile', [App\Http\Controllers\Student\StudentPortalController::class, 'updateProfile'])->name('profile.update');
+    
+    // Academic
+    Route::get('timetable', [App\Http\Controllers\Student\StudentPortalController::class, 'timetable'])->name('timetable');
+    Route::get('attendance', [App\Http\Controllers\Student\StudentPortalController::class, 'attendance'])->name('attendance');
+    Route::get('exams', [App\Http\Controllers\Student\StudentPortalController::class, 'exams'])->name('exams');
+    Route::get('marks', [App\Http\Controllers\Student\StudentPortalController::class, 'marks'])->name('marks');
+    Route::get('report-card/{exam}/download', [App\Http\Controllers\Student\StudentPortalController::class, 'downloadReportCard'])->name('report-card.download');
+    
+    // Assignments
+    Route::get('assignments', [App\Http\Controllers\Student\StudentPortalController::class, 'assignments'])->name('assignments');
+    Route::get('assignments/{assignment}/download', [App\Http\Controllers\Student\StudentPortalController::class, 'downloadAssignment'])->name('assignments.download');
+    
+    // Finance
+    Route::get('fees', [App\Http\Controllers\Student\StudentPortalController::class, 'fees'])->name('fees');
+    
+    // Library
+    Route::get('library', [App\Http\Controllers\Student\StudentPortalController::class, 'library'])->name('library');
+    
+    // Communication
+    Route::get('announcements', [App\Http\Controllers\Student\StudentPortalController::class, 'announcements'])->name('announcements');
+    Route::get('messages', [App\Http\Controllers\Student\StudentPortalController::class, 'messages'])->name('messages');
+    Route::post('messages', [App\Http\Controllers\Student\StudentPortalController::class, 'sendMessage'])->name('messages.send');
+    
+    // Leave
+    Route::get('leave-requests', [App\Http\Controllers\Student\StudentPortalController::class, 'leaveRequests'])->name('leave-requests');
+    Route::post('leave-requests', [App\Http\Controllers\Student\StudentPortalController::class, 'applyLeave'])->name('leave-requests.apply');
 });
 
 // Public Admission Form
