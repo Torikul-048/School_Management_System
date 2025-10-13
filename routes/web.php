@@ -301,6 +301,45 @@ Route::middleware(['auth', 'role:Super Admin|Admin'])->group(function () {
     Route::get('notifications/unread', [App\Http\Controllers\NotificationController::class, 'unread'])->name('notifications.unread');
 });
 
+// Analytics & Reports Routes
+Route::middleware(['auth'])->group(function () {
+    // Analytics Dashboard
+    Route::get('analytics', [App\Http\Controllers\AnalyticsController::class, 'index'])->name('analytics.index');
+    Route::get('analytics/students', [App\Http\Controllers\AnalyticsController::class, 'studentAnalytics'])->name('analytics.students');
+    Route::get('analytics/attendance', [App\Http\Controllers\AnalyticsController::class, 'attendanceAnalytics'])->name('analytics.attendance');
+    Route::get('analytics/financial', [App\Http\Controllers\AnalyticsController::class, 'financialAnalytics'])->name('analytics.financial');
+    Route::get('analytics/teachers', [App\Http\Controllers\AnalyticsController::class, 'teacherAnalytics'])->name('analytics.teachers');
+    Route::get('analytics/performance', [App\Http\Controllers\AnalyticsController::class, 'performanceAnalytics'])->name('analytics.performance');
+    Route::get('analytics/library', [App\Http\Controllers\AnalyticsController::class, 'libraryAnalytics'])->name('analytics.library');
+    
+    // Chart API Endpoints
+    Route::get('analytics/chart-data', [App\Http\Controllers\AnalyticsController::class, 'chartData'])->name('analytics.chart-data');
+    
+    // Dashboard API Endpoints
+    Route::get('dashboard/key-metrics', [DashboardController::class, 'getKeyMetrics'])->name('dashboard.key-metrics');
+    Route::get('dashboard/today-attendance', [DashboardController::class, 'getTodayAttendance'])->name('dashboard.today-attendance');
+    Route::get('dashboard/fee-status', [DashboardController::class, 'getFeeCollectionStatus'])->name('dashboard.fee-status');
+    Route::get('dashboard/upcoming-exams', [DashboardController::class, 'getUpcomingExams'])->name('dashboard.upcoming-exams');
+    Route::get('dashboard/upcoming-events', [DashboardController::class, 'getUpcomingEvents'])->name('dashboard.upcoming-events');
+    Route::get('dashboard/recent-activities', [DashboardController::class, 'getRecentActivities'])->name('dashboard.recent-activities');
+    
+    // Reports
+    Route::get('reports', [App\Http\Controllers\ReportController::class, 'index'])->name('reports.index');
+    Route::get('reports/templates', [App\Http\Controllers\ReportController::class, 'templates'])->name('reports.templates');
+    Route::post('reports/generate', [App\Http\Controllers\ReportController::class, 'generate'])->name('reports.generate');
+    Route::get('reports/my-reports', [App\Http\Controllers\ReportController::class, 'myReports'])->name('reports.my-reports');
+    Route::get('reports/download/{id}', [App\Http\Controllers\ReportController::class, 'download'])->name('reports.download');
+    Route::delete('reports/{id}', [App\Http\Controllers\ReportController::class, 'destroy'])->name('reports.destroy');
+    
+    // Specific Report Types
+    Route::get('reports/students', [App\Http\Controllers\ReportController::class, 'studentReport'])->name('reports.students');
+    Route::get('reports/attendance', [App\Http\Controllers\ReportController::class, 'attendanceReport'])->name('reports.attendance');
+    Route::get('reports/fees', [App\Http\Controllers\ReportController::class, 'feeReport'])->name('reports.fees');
+    Route::get('reports/exams', [App\Http\Controllers\ReportController::class, 'examReport'])->name('reports.exams');
+    Route::get('reports/teachers', [App\Http\Controllers\ReportController::class, 'teacherReport'])->name('reports.teachers');
+    Route::get('reports/financial', [App\Http\Controllers\ReportController::class, 'financialReport'])->name('reports.financial');
+});
+
 // Public Admission Form
 Route::get('admissions/apply', [AdmissionController::class, 'create'])->name('admissions.apply');
 Route::get('admissions/create', [AdmissionController::class, 'create'])->name('admissions.create');
