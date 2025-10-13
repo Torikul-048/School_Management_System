@@ -438,6 +438,42 @@ Route::middleware(['auth', 'role:Student'])->prefix('student')->name('student.')
     Route::post('leave-requests', [App\Http\Controllers\Student\StudentPortalController::class, 'applyLeave'])->name('leave-requests.apply');
 });
 
+// Parent Portal Routes
+Route::middleware(['auth', 'role:Parent'])->prefix('parent')->name('parent.')->group(function () {
+    // Dashboard
+    Route::get('dashboard', [App\Http\Controllers\Parent\ParentPortalController::class, 'dashboard'])->name('dashboard');
+    
+    // Child Profile
+    Route::get('child/{student}/profile', [App\Http\Controllers\Parent\ParentPortalController::class, 'childProfile'])->name('child.profile');
+    
+    // Attendance
+    Route::get('child/{student}/attendance', [App\Http\Controllers\Parent\ParentPortalController::class, 'attendance'])->name('child.attendance');
+    
+    // Exam Results
+    Route::get('child/{student}/results', [App\Http\Controllers\Parent\ParentPortalController::class, 'results'])->name('child.results');
+    
+    // Fees & Payments
+    Route::get('child/{student}/fees', [App\Http\Controllers\Parent\ParentPortalController::class, 'fees'])->name('fees');
+    Route::post('invoice/{invoice}/pay', [App\Http\Controllers\Parent\ParentPortalController::class, 'payOnline'])->name('pay-online');
+    
+    // Notifications
+    Route::get('notifications', [App\Http\Controllers\Parent\ParentPortalController::class, 'notifications'])->name('notifications');
+    
+    // Homework/Assignments
+    Route::get('child/{student}/homework', [App\Http\Controllers\Parent\ParentPortalController::class, 'homework'])->name('homework');
+    
+    // Messages
+    Route::get('messages', [App\Http\Controllers\Parent\ParentPortalController::class, 'messages'])->name('messages');
+    Route::post('messages', [App\Http\Controllers\Parent\ParentPortalController::class, 'sendMessage'])->name('messages.send');
+    
+    // Leave Requests
+    Route::get('child/{student}/leave-requests', [App\Http\Controllers\Parent\ParentPortalController::class, 'leaveRequests'])->name('leave-requests');
+    Route::post('child/{student}/leave-requests', [App\Http\Controllers\Parent\ParentPortalController::class, 'applyLeave'])->name('leave-requests.apply');
+    
+    // Library
+    Route::get('child/{student}/library', [App\Http\Controllers\Parent\ParentPortalController::class, 'library'])->name('library');
+});
+
 // Public Admission Form
 Route::get('admissions/apply', [AdmissionController::class, 'create'])->name('admissions.apply');
 Route::get('admissions/create', [AdmissionController::class, 'create'])->name('admissions.create');

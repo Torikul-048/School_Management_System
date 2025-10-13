@@ -68,6 +68,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Get children (students) for parent users
+     */
+    public function children()
+    {
+        return $this->hasMany(Student::class, 'parent_user_id');
+    }
+
+    /**
      * Get sent messages
      */
     public function sentMessages()

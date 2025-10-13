@@ -36,7 +36,7 @@ class DashboardController extends Controller
         } elseif ($user->hasRole('Student')) {
             return redirect()->route('student.dashboard');
         } elseif ($user->hasRole('Parent')) {
-            return $this->parentDashboard();
+            return redirect()->route('parent.dashboard');
         } elseif ($user->hasRole('Accountant')) {
             return $this->accountantDashboard();
         } elseif ($user->hasRole('Librarian')) {
@@ -112,18 +112,8 @@ class DashboardController extends Controller
 
     public function parentDashboard()
     {
-        $parent = auth()->user()->parent;
-        $students = $parent ? $parent->students : collect();
-
-        $data = [
-            'students' => $students,
-            'attendance' => $students->isNotEmpty() ? $this->getChildrenAttendance($students->pluck('id')) : collect(),
-            'feeStatus' => $students->isNotEmpty() ? $this->getChildrenFeeStatus($students->pluck('id')) : collect(),
-            'upcomingExams' => $this->getUpcomingExams(),
-            'recentResults' => $students->isNotEmpty() ? $this->getChildrenRecentResults($students->pluck('id')) : collect(),
-        ];
-
-        return view('dashboards.parent', $data);
+        // Redirect to the new Parent Portal
+        return redirect()->route('parent.dashboard');
     }
 
     public function accountantDashboard()
