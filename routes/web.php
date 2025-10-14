@@ -149,6 +149,22 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::get('teachers/{teacher}/performance', [TeacherController::class, 'performance'])->name('teachers.performance');
     Route::get('teachers/{teacher}/id-card', [TeacherController::class, 'idCard'])->name('teachers.id-card');
     
+    // Teacher Leave Management
+    Route::get('teacher-leaves', [TeacherLeaveController::class, 'index'])->name('teacher-leaves.index');
+    Route::get('teacher-leaves/create', [TeacherLeaveController::class, 'create'])->name('teacher-leaves.create');
+    Route::post('teacher-leaves', [TeacherLeaveController::class, 'store'])->name('teacher-leaves.store');
+    Route::get('teacher-leaves/{teacherLeave}', [TeacherLeaveController::class, 'show'])->name('teacher-leaves.show');
+    Route::delete('teacher-leaves/{teacherLeave}', [TeacherLeaveController::class, 'destroy'])->name('teacher-leaves.destroy');
+    Route::post('teacher-leaves/{teacherLeave}/approve', [TeacherLeaveController::class, 'approve'])->name('teacher-leaves.approve');
+    Route::post('teacher-leaves/{teacherLeave}/reject', [TeacherLeaveController::class, 'reject'])->name('teacher-leaves.reject');
+    Route::get('teacher-leaves/balance', [TeacherLeaveController::class, 'balance'])->name('teacher-leaves.balance');
+    Route::get('teacher-leaves/history', [TeacherLeaveController::class, 'history'])->name('teacher-leaves.history');
+    
+    // Phase 7: Finance & Accounts Module
+});
+
+// Finance & Accounts Routes - Admin and Accountant Access
+Route::middleware(['auth', 'role:Admin|Accountant'])->group(function () {
     // Payroll Management
     Route::get('payroll', [PayrollController::class, 'index'])->name('payroll.index');
     Route::get('payroll/create', [PayrollController::class, 'create'])->name('payroll.create');
@@ -164,18 +180,6 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::get('payroll/reports', [PayrollController::class, 'reports'])->name('payroll.reports');
     Route::get('payroll/{teacher}/history', [PayrollController::class, 'salaryHistory'])->name('payroll.salary-history');
     
-    // Teacher Leave Management
-    Route::get('teacher-leaves', [TeacherLeaveController::class, 'index'])->name('teacher-leaves.index');
-    Route::get('teacher-leaves/create', [TeacherLeaveController::class, 'create'])->name('teacher-leaves.create');
-    Route::post('teacher-leaves', [TeacherLeaveController::class, 'store'])->name('teacher-leaves.store');
-    Route::get('teacher-leaves/{teacherLeave}', [TeacherLeaveController::class, 'show'])->name('teacher-leaves.show');
-    Route::delete('teacher-leaves/{teacherLeave}', [TeacherLeaveController::class, 'destroy'])->name('teacher-leaves.destroy');
-    Route::post('teacher-leaves/{teacherLeave}/approve', [TeacherLeaveController::class, 'approve'])->name('teacher-leaves.approve');
-    Route::post('teacher-leaves/{teacherLeave}/reject', [TeacherLeaveController::class, 'reject'])->name('teacher-leaves.reject');
-    Route::get('teacher-leaves/balance', [TeacherLeaveController::class, 'balance'])->name('teacher-leaves.balance');
-    Route::get('teacher-leaves/history', [TeacherLeaveController::class, 'history'])->name('teacher-leaves.history');
-    
-    // Phase 7: Finance & Accounts Module
     // Fee Structures
     Route::resource('fee-structures', FeeStructureController::class);
     
@@ -218,6 +222,10 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::get('finance/reports/daily-collection', [FinanceReportController::class, 'dailyCollection'])->name('finance.reports.daily-collection');
     Route::get('finance/reports/income/pdf', [FinanceReportController::class, 'downloadIncomePdf'])->name('finance.reports.income.pdf');
     Route::get('finance/reports/expenses/pdf', [FinanceReportController::class, 'downloadExpensePdf'])->name('finance.reports.expenses.pdf');
+});
+
+// Continue Admin-only routes
+Route::middleware(['auth', 'role:Admin'])->group(function () {
     
     // Phase 8: Library Management Module
     // Library Dashboard

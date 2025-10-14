@@ -118,14 +118,72 @@ class DashboardController extends Controller
 
     public function accountantDashboard()
     {
+        $currentMonth = now();
+        
+        // Key Metrics
+        $metrics = [
+            'total_collection_today' => \App\Models\FeeCollection::whereDate('payment_date', today())->sum('paid_amount'),
+            'total_collection_month' => \App\Models\FeeCollection::whereMonth('payment_date', $currentMonth->month)
+                ->whereYear('payment_date', $currentMonth->year)
+                ->sum('paid_amount'),
+            'total_expenses_month' => \App\Models\Expense::where('status', 'approved')
+                ->whereMonth('expense_date', $currentMonth->month)
+                ->whereYear('expense_date', $currentMonth->year)
+                ->sum('amount'),
+            'pending_fees' => \App\Models\Student::where('status', 'active')->count() * 1000, // Estimate
+            'pending_expense_approvals' => \App\Models\Expense::where('status', 'pending')->count(),
+            'total_students' => \App\Models\Student::where('status', 'active')->count(),
+        ];
+        
+        // Fee Collection Status
+        $feeStatus = $this->getFeeCollectionStatus();
+        
+        // Recent Collections
+        $recentCollections = \App\Models\FeeCollection::with(['student', 'feeStructure', 'paymentMethod'])
+            ->latest()
+            ->limit(10)
+            ->get();
+        
+        // Recent Expenses
+        $recentExpenses = \App\Models\Expense::with(['paymentMethod', 'creator'])
+            ->latest()
+            ->limit(10)
+            ->get();
+        
+        // Pending Approvals
+        $pendingExpenses = \App\Models\Expense::with(['creator', 'paymentMethod'])
+            ->where('status', 'pending')
+            ->latest()
+            ->get();
+        
+        // Payment Method Breakdown
+        $paymentMethodStats = \App\Models\FeeCollection::with('paymentMethod')
+            ->whereMonth('payment_date', $currentMonth->month)
+            ->whereYear('payment_date', $currentMonth->year)
+            ->selectRaw('payment_method_id, SUM(paid_amount) as total')
+            ->groupBy('payment_method_id')
+            ->get();
+        
+        // Defaulters Count
+        $defaultersCount = \App\Models\Student::where('status', 'active')->count() - 
+            \App\Models\FeeCollection::whereMonth('payment_date', $currentMonth->month)
+                ->whereYear('payment_date', $currentMonth->year)
+                ->distinct('student_id')
+                ->count('student_id');
+        
         $data = [
-            'feeStatus' => $this->getFeeCollectionStatus(),
+            'metrics' => $metrics,
+            'feeStatus' => $feeStatus,
+            'recentCollections' => $recentCollections,
+            'recentExpenses' => $recentExpenses,
+            'pendingExpenses' => $pendingExpenses,
+            'paymentMethodStats' => $paymentMethodStats,
+            'defaultersCount' => $defaultersCount,
             'charts' => [
                 'feeCollection' => $this->chartService->getMonthlyFeeCollection(),
                 'incomeExpense' => $this->chartService->getIncomeVsExpense(6),
                 'expenseBreakdown' => $this->chartService->getExpenseBreakdown(),
             ],
-            'recentPayments' => FeeCollection::with('student')->latest()->limit(10)->get(),
         ];
 
         return view('dashboards.accountant', $data);

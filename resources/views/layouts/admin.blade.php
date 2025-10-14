@@ -211,23 +211,30 @@
     </div>
 
     <script>
-        // Preserve sidebar scroll position
+        // Preserve sidebar scroll position (only for sidebar, not main content)
         document.addEventListener('DOMContentLoaded', function() {
             const sidebar = document.getElementById('sidebar-nav');
             
-            // Restore scroll position on page load
-            const savedScrollPosition = sessionStorage.getItem('sidebarScrollPosition');
-            if (savedScrollPosition !== null && sidebar) {
-                sidebar.scrollTop = parseInt(savedScrollPosition, 10);
-            }
-            
-            // Save scroll position before navigating away
             if (sidebar) {
+                // Restore sidebar scroll position on page load
+                const savedScrollPosition = sessionStorage.getItem('sidebarScrollPosition');
+                if (savedScrollPosition !== null) {
+                    // Use setTimeout to ensure DOM is fully loaded
+                    setTimeout(() => {
+                        sidebar.scrollTop = parseInt(savedScrollPosition, 10);
+                    }, 0);
+                }
+                
+                // Save sidebar scroll position (debounced)
+                let scrollTimeout;
                 sidebar.addEventListener('scroll', function() {
-                    sessionStorage.setItem('sidebarScrollPosition', sidebar.scrollTop);
+                    clearTimeout(scrollTimeout);
+                    scrollTimeout = setTimeout(() => {
+                        sessionStorage.setItem('sidebarScrollPosition', sidebar.scrollTop);
+                    }, 100);
                 });
                 
-                // Also save on click of any link
+                // Save on link click
                 const sidebarLinks = sidebar.querySelectorAll('a');
                 sidebarLinks.forEach(link => {
                     link.addEventListener('click', function() {
