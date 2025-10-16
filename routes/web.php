@@ -225,7 +225,7 @@ Route::middleware(['auth', 'role:Admin|Accountant'])->group(function () {
 });
 
 // Continue Admin-only routes
-Route::middleware(['auth', 'role:Admin'])->group(function () {
+Route::middleware(['auth', 'role:Admin|Librarian'])->group(function () {
     
     // Phase 8: Library Management Module
     // Library Dashboard

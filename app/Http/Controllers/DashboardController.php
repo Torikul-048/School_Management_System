@@ -191,7 +191,51 @@ class DashboardController extends Controller
 
     public function librarianDashboard()
     {
+        // Key Metrics
+        $totalBooks = \App\Models\Book::count();
+        $issuedBooks = \App\Models\BookIssue::where('status', 'issued')->count();
+        $overdueBooks = \App\Models\BookIssue::where('status', 'issued')
+            ->where('due_date', '<', now())
+            ->count();
+        $pendingFines = \App\Models\BookIssue::whereNotNull('fine_amount')
+            ->where('fine_paid', false)
+            ->sum('fine_amount');
+        $totalFineCollected = \App\Models\BookIssue::where('fine_paid', true)
+            ->sum('fine_amount');
+        $availableBooks = \App\Models\Book::where('status', 'available')->sum('available_copies');
+        
+        // Category Statistics
+        $categoryStats = \App\Models\BookCategory::withCount('books')
+            ->orderBy('books_count', 'desc')
+            ->limit(5)
+            ->get();
+        $totalCategories = \App\Models\BookCategory::count();
+        
+        // Recent Issues
+        $recentIssues = \App\Models\BookIssue::with(['book', 'student', 'teacher'])
+            ->latest()
+            ->limit(5)
+            ->get();
+        
+        // Popular Books
+        $popularBooks = \App\Models\Book::withCount(['issues' => function ($query) {
+                $query->where('created_at', '>=', now()->subMonths(3));
+            }])
+            ->orderBy('issues_count', 'desc')
+            ->limit(5)
+            ->get();
+
         $data = [
+            'totalBooks' => $totalBooks,
+            'issuedBooks' => $issuedBooks,
+            'overdueBooks' => $overdueBooks,
+            'pendingFines' => $pendingFines,
+            'totalFineCollected' => $totalFineCollected,
+            'availableBooks' => $availableBooks,
+            'categoryStats' => $categoryStats,
+            'totalCategories' => $totalCategories,
+            'recentIssues' => $recentIssues,
+            'popularBooks' => $popularBooks,
             'charts' => [
                 'circulation' => $this->chartService->getLibraryCirculation(6),
             ],
