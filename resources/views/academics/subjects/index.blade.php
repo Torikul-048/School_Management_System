@@ -17,14 +17,17 @@
         </a>
     </div>
 
-    <div class="space-y-6">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Search</label>
+    <!-- Search/Filter Form -->
+    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+        <form method="GET" action="{{ route('subjects.index') }}" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Search</label>
                 <input type="text" name="search" value="{{ request('search') }}" placeholder="Subject name or code..."
-                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
             </div>
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Class</label>
-                <select name="class_id" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Class</label>
+                <select name="class_id" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                     <option value="">All Classes</option>
                     @foreach($classes as $class)
                         <option value="{{ $class->id }}" {{ request('class_id') == $class->id ? 'selected' : '' }}>
@@ -34,10 +37,10 @@
                 </select>
             </div>
             <div class="flex items-end gap-2">
-                <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
                     Search
                 </button>
-                <a href="{{ route('subjects.index') }}" class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+                <a href="{{ route('subjects.index') }}" class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
                     Clear
                 </a>
             </div>

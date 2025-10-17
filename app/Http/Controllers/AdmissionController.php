@@ -16,9 +16,9 @@ class AdmissionController extends Controller
      */
     public function create()
     {
-        $classes = Classes::all();
-        $sections = Section::all();
-        $academicYears = AcademicYear::where('is_current', true)->get();
+        $classes = Classes::orderByRaw("CAST(numeric_name AS INTEGER)")->orderBy('name')->get();
+        $sections = Section::orderBy('name')->get();
+        $academicYears = AcademicYear::where('is_current', true)->orderBy('year', 'desc')->get();
         
         return view('admissions.create', compact('classes', 'sections', 'academicYears'));
     }

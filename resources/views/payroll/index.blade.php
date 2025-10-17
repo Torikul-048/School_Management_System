@@ -36,7 +36,7 @@
                 </div>
                 <div class="bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg p-6">
                     <div class="text-sm text-gray-600 dark:text-gray-400">Total Amount</div>
-                    <div class="text-2xl font-bold text-indigo-600">₹{{ number_format($stats['total_amount'], 2) }}</div>
+                    <div class="text-2xl font-bold text-indigo-600">৳{{ number_format($stats['total_amount'], 2) }}</div>
                 </div>
             </div>
 
@@ -107,16 +107,16 @@
                                         {{ \Carbon\Carbon::parse($payroll->month)->format('M Y') }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                        ₹{{ number_format($payroll->basic_salary, 2) }}
+                                        ৳{{ number_format($payroll->basic_salary, 2) }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">
-                                        +₹{{ number_format($payroll->total_allowances, 2) }}
+                                        +৳{{ number_format($payroll->total_allowances, 2) }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-red-600">
-                                        -₹{{ number_format($payroll->total_deductions, 2) }}
+                                        -৳{{ number_format($payroll->total_deductions, 2) }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold">
-                                        ₹{{ number_format($payroll->net_salary, 2) }}
+                                        ৳{{ number_format($payroll->net_salary, 2) }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         @if($payroll->status == 'paid')

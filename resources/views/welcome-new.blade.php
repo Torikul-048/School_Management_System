@@ -161,170 +161,29 @@
                         </div>
                         <div class="bg-white border-x border-b border-gray-200 rounded-b-lg shadow-md flex-1 flex flex-col">
                             <div class="divide-y divide-gray-200 overflow-y-auto max-h-96" style="scrollbar-width: thin; scrollbar-color: #3b82f6 #e5e7eb;">
-                                <a href="#" class="block p-4 hover:bg-blue-50 transition">
-                                    <div class="flex items-start space-x-3">
-                                        <div class="flex-shrink-0 bg-blue-600 text-white rounded-lg w-12 h-12 flex items-center justify-center font-bold">
-                                            <div class="text-center leading-tight">
-                                                <div class="text-xs">DEC</div>
-                                                <div class="text-lg">20</div>
+                                @forelse($latestNews as $news)
+                                    <a href="#" class="block p-4 hover:bg-blue-50 transition">
+                                        <div class="flex items-start space-x-3">
+                                            <div class="flex-shrink-0 bg-blue-600 text-white rounded-lg w-12 h-12 flex items-center justify-center font-bold">
+                                                <div class="text-center leading-tight">
+                                                    <div class="text-xs">{{ $news->date->format('M') }}</div>
+                                                    <div class="text-lg">{{ $news->date->format('d') }}</div>
+                                                </div>
+                                            </div>
+                                            <div class="flex-1 min-w-0">
+                                                <p class="text-sm text-gray-900 font-medium">{{ $news->title }}</p>
+                                                <span class="text-xs text-orange-600">⏱ {{ $news->time_ago }}</span>
                                             </div>
                                         </div>
-                                        <div class="flex-1 min-w-0">
-                                            <p class="text-sm text-gray-900 font-medium">Annual Sports Day Event</p>
-                                            <span class="text-xs text-orange-600">⏱ 2 hours ago</span>
-                                        </div>
+                                    </a>
+                                @empty
+                                    <div class="p-8 text-center text-gray-500">
+                                        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                                        </svg>
+                                        <p class="mt-2 text-sm">No news available</p>
                                     </div>
-                                </a>
-                                
-                                <a href="#" class="block p-4 hover:bg-blue-50 transition">
-                                    <div class="flex items-start space-x-3">
-                                        <div class="flex-shrink-0 bg-blue-600 text-white rounded-lg w-12 h-12 flex items-center justify-center font-bold">
-                                            <div class="text-center leading-tight">
-                                                <div class="text-xs">DEC</div>
-                                                <div class="text-lg">18</div>
-                                            </div>
-                                        </div>
-                                        <div class="flex-1 min-w-0">
-                                            <p class="text-sm text-gray-900 font-medium">Science Fair Winners Announced</p>
-                                            <span class="text-xs text-orange-600">⏱ 1 day ago</span>
-                                        </div>
-                                    </div>
-                                </a>
-
-                                <a href="#" class="block p-4 hover:bg-blue-50 transition">
-                                    <div class="flex items-start space-x-3">
-                                        <div class="flex-shrink-0 bg-blue-600 text-white rounded-lg w-12 h-12 flex items-center justify-center font-bold">
-                                            <div class="text-center leading-tight">
-                                                <div class="text-xs">DEC</div>
-                                                <div class="text-lg">15</div>
-                                            </div>
-                                        </div>
-                                        <div class="flex-1 min-w-0">
-                                            <p class="text-sm text-gray-900 font-medium">Class 10 Board Exam Schedule</p>
-                                            <span class="text-xs text-orange-600">⏱ 3 days ago</span>
-                                        </div>
-                                    </div>
-                                </a>
-
-                                <a href="#" class="block p-4 hover:bg-blue-50 transition">
-                                    <div class="flex items-start space-x-3">
-                                        <div class="flex-shrink-0 bg-blue-600 text-white rounded-lg w-12 h-12 flex items-center justify-center font-bold">
-                                            <div class="text-center leading-tight">
-                                                <div class="text-xs">DEC</div>
-                                                <div class="text-lg">12</div>
-                                            </div>
-                                        </div>
-                                        <div class="flex-1 min-w-0">
-                                            <p class="text-sm text-gray-900 font-medium">Winter Vacation Notice</p>
-                                            <span class="text-xs text-orange-600">⏱ 5 days ago</span>
-                                        </div>
-                                    </div>
-                                </a>
-
-                                <a href="#" class="block p-4 hover:bg-blue-50 transition">
-                                    <div class="flex items-start space-x-3">
-                                        <div class="flex-shrink-0 bg-blue-600 text-white rounded-lg w-12 h-12 flex items-center justify-center font-bold">
-                                            <div class="text-center leading-tight">
-                                                <div class="text-xs">DEC</div>
-                                                <div class="text-lg">10</div>
-                                            </div>
-                                        </div>
-                                        <div class="flex-1 min-w-0">
-                                            <p class="text-sm text-gray-900 font-medium">New Library Books Arrival</p>
-                                            <span class="text-xs text-orange-600">⏱ 1 week ago</span>
-                                        </div>
-                                    </div>
-                                </a>
-
-                                <a href="#" class="block p-4 hover:bg-blue-50 transition">
-                                    <div class="flex items-start space-x-3">
-                                        <div class="flex-shrink-0 bg-blue-600 text-white rounded-lg w-12 h-12 flex items-center justify-center font-bold">
-                                            <div class="text-center leading-tight">
-                                                <div class="text-xs">DEC</div>
-                                                <div class="text-lg">08</div>
-                                            </div>
-                                        </div>
-                                        <div class="flex-1 min-w-0">
-                                            <p class="text-sm text-gray-900 font-medium">Computer Lab Upgraded</p>
-                                            <span class="text-xs text-orange-600">⏱ 1 week ago</span>
-                                        </div>
-                                    </div>
-                                </a>
-
-                                <a href="#" class="block p-4 hover:bg-blue-50 transition">
-                                    <div class="flex items-start space-x-3">
-                                        <div class="flex-shrink-0 bg-blue-600 text-white rounded-lg w-12 h-12 flex items-center justify-center font-bold">
-                                            <div class="text-center leading-tight">
-                                                <div class="text-xs">DEC</div>
-                                                <div class="text-lg">05</div>
-                                            </div>
-                                        </div>
-                                        <div class="flex-1 min-w-0">
-                                            <p class="text-sm text-gray-900 font-medium">Annual Day Celebration</p>
-                                            <span class="text-xs text-orange-600">⏱ 2 weeks ago</span>
-                                        </div>
-                                    </div>
-                                </a>
-
-                                <a href="#" class="block p-4 hover:bg-blue-50 transition">
-                                    <div class="flex items-start space-x-3">
-                                        <div class="flex-shrink-0 bg-blue-600 text-white rounded-lg w-12 h-12 flex items-center justify-center font-bold">
-                                            <div class="text-center leading-tight">
-                                                <div class="text-xs">DEC</div>
-                                                <div class="text-lg">02</div>
-                                            </div>
-                                        </div>
-                                        <div class="flex-1 min-w-0">
-                                            <p class="text-sm text-gray-900 font-medium">Mathematics Olympiad Results</p>
-                                            <span class="text-xs text-orange-600">⏱ 2 weeks ago</span>
-                                        </div>
-                                    </div>
-                                </a>
-
-                                <a href="#" class="block p-4 hover:bg-blue-50 transition">
-                                    <div class="flex items-start space-x-3">
-                                        <div class="flex-shrink-0 bg-blue-600 text-white rounded-lg w-12 h-12 flex items-center justify-center font-bold">
-                                            <div class="text-center leading-tight">
-                                                <div class="text-xs">NOV</div>
-                                                <div class="text-lg">28</div>
-                                            </div>
-                                        </div>
-                                        <div class="flex-1 min-w-0">
-                                            <p class="text-sm text-gray-900 font-medium">School Achieves 100% Results</p>
-                                            <span class="text-xs text-orange-600">⏱ 3 weeks ago</span>
-                                        </div>
-                                    </div>
-                                </a>
-
-                                <a href="#" class="block p-4 hover:bg-blue-50 transition">
-                                    <div class="flex items-start space-x-3">
-                                        <div class="flex-shrink-0 bg-blue-600 text-white rounded-lg w-12 h-12 flex items-center justify-center font-bold">
-                                            <div class="text-center leading-tight">
-                                                <div class="text-xs">NOV</div>
-                                                <div class="text-lg">25</div>
-                                            </div>
-                                        </div>
-                                        <div class="flex-1 min-w-0">
-                                            <p class="text-sm text-gray-900 font-medium">Smart Classroom Inauguration</p>
-                                            <span class="text-xs text-orange-600">⏱ 3 weeks ago</span>
-                                        </div>
-                                    </div>
-                                </a>
-
-                                <a href="#" class="block p-4 hover:bg-blue-50 transition">
-                                    <div class="flex items-start space-x-3">
-                                        <div class="flex-shrink-0 bg-blue-600 text-white rounded-lg w-12 h-12 flex items-center justify-center font-bold">
-                                            <div class="text-center leading-tight">
-                                                <div class="text-xs">NOV</div>
-                                                <div class="text-lg">20</div>
-                                            </div>
-                                        </div>
-                                        <div class="flex-1 min-w-0">
-                                            <p class="text-sm text-gray-900 font-medium">Inter-School Football Tournament Win</p>
-                                            <span class="text-xs text-orange-600">⏱ 1 month ago</span>
-                                        </div>
-                                    </div>
-                                </a>
+                                @endforelse
                             </div>
                         </div>
                     </div>
@@ -643,117 +502,314 @@
                     <h2 class="text-3xl font-bold text-gray-900 mb-4">Academics</h2>
                     <div class="h-1 w-24 bg-blue-600 mx-auto mb-4"></div>
                     <p class="text-gray-600 max-w-3xl mx-auto">
-                        We offer comprehensive education from Class 1 to Class 10 following the CBSE curriculum with a focus on holistic development and academic excellence.
+                        We offer comprehensive education from Class 1 to Class 10 following the NCTB curriculum with a focus on holistic development and academic excellence.
                     </p>
                 </div>
 
-                <!-- Curriculum Overview -->
-                <div class="grid md:grid-cols-3 gap-8 mb-12">
-                    <!-- Primary Classes -->
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                        <div class="bg-gradient-to-r from-blue-600 to-blue-700 p-6 text-white">
-                            <h3 class="text-xl font-bold">Primary Section</h3>
-                            <p class="text-blue-100 text-sm">Class 1 - Class 5</p>
+                <!-- Curriculum Overview - Primary Level -->
+                <div class="mb-8">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">Primary Level</h3>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <!-- Class 1-2 -->
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <div class="bg-gradient-to-r from-blue-500 to-blue-600 p-6 text-white">
+                                <h3 class="text-xl font-bold">Primary Junior</h3>
+                                <p class="text-blue-100 text-sm">Class 1 - Class 2</p>
+                            </div>
+                            <div class="p-6">
+                                <p class="text-sm text-gray-500 mb-4 font-semibold">3 Core Subjects:</p>
+                                <ul class="space-y-3">
+                                    <li class="flex items-start">
+                                        <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span class="text-gray-700 text-sm">Bangla</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span class="text-gray-700 text-sm">English</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span class="text-gray-700 text-sm">Mathematics</span>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="p-6">
-                            <ul class="space-y-3">
-                                <li class="flex items-start">
-                                    <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                                    </svg>
-                                    <span class="text-gray-700 text-sm">English, Hindi, Mathematics</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                                    </svg>
-                                    <span class="text-gray-700 text-sm">Environmental Studies (EVS)</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                                    </svg>
-                                    <span class="text-gray-700 text-sm">Computer Science</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                                    </svg>
-                                    <span class="text-gray-700 text-sm">Art & Craft, Physical Education</span>
-                                </li>
-                            </ul>
+
+                        <!-- Class 3-5 -->
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <div class="bg-gradient-to-r from-green-500 to-green-600 p-6 text-white">
+                                <h3 class="text-xl font-bold">Primary Senior</h3>
+                                <p class="text-green-100 text-sm">Class 3 - Class 5</p>
+                            </div>
+                            <div class="p-6">
+                                <p class="text-sm text-gray-500 mb-4 font-semibold">6 Subjects:</p>
+                                <ul class="space-y-3">
+                                    <li class="flex items-start">
+                                        <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span class="text-gray-700 text-sm">Bangla, English, Mathematics</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span class="text-gray-700 text-sm">Bangladesh & Global Studies</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span class="text-gray-700 text-sm">Science</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span class="text-gray-700 text-sm">Religion & Moral Education</span>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Middle Classes -->
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                        <div class="bg-gradient-to-r from-green-600 to-green-700 p-6 text-white">
-                            <h3 class="text-xl font-bold">Middle Section</h3>
-                            <p class="text-green-100 text-sm">Class 6 - Class 8</p>
-                        </div>
-                        <div class="p-6">
-                            <ul class="space-y-3">
-                                <li class="flex items-start">
-                                    <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                                    </svg>
-                                    <span class="text-gray-700 text-sm">English, Hindi, Mathematics</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                                    </svg>
-                                    <span class="text-gray-700 text-sm">Science (Physics, Chemistry, Biology)</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                                    </svg>
-                                    <span class="text-gray-700 text-sm">Social Science (History, Geography, Civics)</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                                    </svg>
-                                    <span class="text-gray-700 text-sm">Computer Science, Sanskrit</span>
-                                </li>
-                            </ul>
+                <!-- Junior Secondary Level -->
+                <div class="mb-8">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">Junior Secondary Level</h3>
+                    <div class="max-w-3xl mx-auto">
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <div class="bg-gradient-to-r from-purple-500 to-purple-600 p-6 text-white">
+                                <h3 class="text-xl font-bold">Junior Secondary</h3>
+                                <p class="text-purple-100 text-sm">Class 6 - Class 8</p>
+                            </div>
+                            <div class="p-6">
+                                <p class="text-sm text-gray-500 mb-4 font-semibold">8 Subjects:</p>
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <ul class="space-y-3">
+                                        <li class="flex items-start">
+                                            <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <span class="text-gray-700 text-sm">Bangla</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <span class="text-gray-700 text-sm">English</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <span class="text-gray-700 text-sm">Mathematics</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <span class="text-gray-700 text-sm">Science</span>
+                                        </li>
+                                    </ul>
+                                    <ul class="space-y-3">
+                                        <li class="flex items-start">
+                                            <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <span class="text-gray-700 text-sm">Bangladesh & Global Studies</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <span class="text-gray-700 text-sm">Religion & Moral Education</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <span class="text-gray-700 text-sm">ICT</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <span class="text-gray-700 text-sm">Agriculture / Home Science</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Secondary Classes -->
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                        <div class="bg-gradient-to-r from-purple-600 to-purple-700 p-6 text-white">
-                            <h3 class="text-xl font-bold">Secondary Section</h3>
-                            <p class="text-purple-100 text-sm">Class 9 - Class 10</p>
+                <!-- Secondary Level - Class 9-10 Groups -->
+                <div class="mb-8">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">Secondary Level (Class 9-10)</h3>
+                    <p class="text-center text-gray-600 mb-6">Students can choose from three academic groups based on their interests and career goals</p>
+                    
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <!-- Science Group -->
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <div class="bg-gradient-to-r from-blue-600 to-blue-700 p-6 text-white">
+                                <h3 class="text-xl font-bold">Science Group</h3>
+                                <p class="text-blue-100 text-sm">For aspiring scientists & engineers</p>
+                            </div>
+                            <div class="p-6">
+                                <p class="text-xs text-gray-500 mb-3 font-semibold uppercase">Compulsory Subjects:</p>
+                                <ul class="space-y-2 mb-4">
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-blue-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span class="text-gray-700 text-xs">Bangla, English, Math</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-blue-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span class="text-gray-700 text-xs">ICT, Religion, BGS</span>
+                                    </li>
+                                </ul>
+                                <p class="text-xs text-gray-500 mb-3 font-semibold uppercase">Group Subjects:</p>
+                                <ul class="space-y-2">
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span class="text-gray-700 text-xs">Physics</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span class="text-gray-700 text-xs">Chemistry</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span class="text-gray-700 text-xs">Biology</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span class="text-gray-700 text-xs">Higher Mathematics</span>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="p-6">
-                            <ul class="space-y-3">
-                                <li class="flex items-start">
-                                    <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                                    </svg>
-                                    <span class="text-gray-700 text-sm">English, Hindi, Mathematics</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                                    </svg>
-                                    <span class="text-gray-700 text-sm">Science (Board Preparation)</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                                    </svg>
-                                    <span class="text-gray-700 text-sm">Social Science (Board Preparation)</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                                    </svg>
-                                    <span class="text-gray-700 text-sm">Information Technology, Sanskrit</span>
-                                </li>
-                            </ul>
+
+                        <!-- Humanities/Arts Group -->
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <div class="bg-gradient-to-r from-green-600 to-green-700 p-6 text-white">
+                                <h3 class="text-xl font-bold">Humanities Group</h3>
+                                <p class="text-green-100 text-sm">For future leaders & thinkers</p>
+                            </div>
+                            <div class="p-6">
+                                <p class="text-xs text-gray-500 mb-3 font-semibold uppercase">Compulsory Subjects:</p>
+                                <ul class="space-y-2 mb-4">
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span class="text-gray-700 text-xs">Bangla, English, Math</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span class="text-gray-700 text-xs">ICT, Religion, BGS</span>
+                                    </li>
+                                </ul>
+                                <p class="text-xs text-gray-500 mb-3 font-semibold uppercase">Group Subjects:</p>
+                                <ul class="space-y-2">
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span class="text-gray-700 text-xs">History of Bangladesh & World</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span class="text-gray-700 text-xs">Civics & Citizenship</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span class="text-gray-700 text-xs">Geography & Environment</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span class="text-gray-700 text-xs">Economics</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Business Studies Group -->
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <div class="bg-gradient-to-r from-orange-600 to-orange-700 p-6 text-white">
+                                <h3 class="text-xl font-bold">Business Studies</h3>
+                                <p class="text-orange-100 text-sm">For future entrepreneurs</p>
+                            </div>
+                            <div class="p-6">
+                                <p class="text-xs text-gray-500 mb-3 font-semibold uppercase">Compulsory Subjects:</p>
+                                <ul class="space-y-2 mb-4">
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-orange-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span class="text-gray-700 text-xs">Bangla, English, Math</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-orange-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span class="text-gray-700 text-xs">ICT, Religion, BGS</span>
+                                    </li>
+                                </ul>
+                                <p class="text-xs text-gray-500 mb-3 font-semibold uppercase">Group Subjects:</p>
+                                <ul class="space-y-2">
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span class="text-gray-700 text-xs">Accounting</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span class="text-gray-700 text-xs">Finance & Banking</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span class="text-gray-700 text-xs">Business Entrepreneurship</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span class="text-gray-700 text-xs">Economics</span>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1045,10 +1101,17 @@
                 <div class="bg-gradient-to-r from-green-600 to-green-700 rounded-xl shadow-2xl p-8 text-center text-white">
                     <h3 class="text-2xl font-bold mb-3">Ready to Apply?</h3>
                     <p class="text-green-100 mb-6 max-w-2xl mx-auto">
-                        Contact our admin office to initiate the admission process. Our administration team will guide you through each step and provide you with login credentials upon successful admission.
+                        Fill out our online admission form to start your journey with us. Our administration team will review your application and contact you within 2-3 business days.
                     </p>
                     <div class="flex flex-wrap justify-center gap-4">
-                        <a href="tel:+919876543210" class="inline-flex items-center px-6 py-3 bg-white text-green-600 font-semibold rounded-lg hover:bg-gray-100 transition-all shadow-lg">
+                        <a href="{{ route('admissions.apply') }}" class="inline-flex items-center px-8 py-4 bg-white text-green-600 font-bold rounded-lg hover:bg-gray-100 transition-all shadow-lg transform hover:scale-105">
+                            <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+                                <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/>
+                            </svg>
+                            Apply Online Now
+                        </a>
+                        <a href="tel:+8801712345678" class="inline-flex items-center px-6 py-3 bg-white text-green-600 font-semibold rounded-lg hover:bg-gray-100 transition-all shadow-lg">
                             <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                             </svg>
@@ -1062,7 +1125,7 @@
                             Email for Inquiry
                         </a>
                         @auth
-                            @if(auth()->user()->role === 'admin')
+                            @if(auth()->user()->hasRole(['Super Admin', 'Admin']))
                                 <a href="{{ route('dashboard') }}" class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all shadow-lg">
                                     <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
@@ -1074,7 +1137,7 @@
                     </div>
                     <div class="mt-6 pt-6 border-t border-green-500">
                         <p class="text-sm text-green-100">
-                            <strong>Note:</strong> All admissions are processed by the administration. Login credentials will be provided by admin after successful verification and fee payment.
+                            <strong>Note:</strong> Fill the online form and our administration team will review your application. Login credentials will be provided after successful verification and fee payment.
                         </p>
                     </div>
                 </div>
@@ -1123,7 +1186,7 @@
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition group">
                         <div class="relative h-48 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800&auto=format&fit=crop" alt="Event" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                            <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=800&auto=format&fit=crop" alt="Annual Day Event" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
                         </div>
                         <div class="p-3">
                             <h3 class="font-semibold text-gray-900 text-sm">Annual Day Celebration</h3>
@@ -1258,96 +1321,6 @@
             </div>
         </section>
 
-        <!-- Demo Accounts Section -->
-        <section class="py-12 bg-white">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-8">
-                    <h2 class="text-2xl font-bold text-gray-900 mb-2">Try Demo Accounts</h2>
-                    <p class="text-gray-600">Experience the platform with different user roles</p>
-                </div>
-                
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <!-- Admin Demo -->
-                    <div class="bg-white rounded-lg shadow-md p-5 border-t-4 border-blue-600 hover:shadow-lg transition">
-                        <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mb-3">
-                            <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
-                            </svg>
-                        </div>
-                        <h3 class="text-base font-bold text-gray-900 mb-2">Admin Account</h3>
-                        <div class="space-y-1 text-xs mb-3">
-                            <p class="text-gray-600"><span class="font-semibold">Email:</span> admin@schoolsystem.com</p>
-                            <p class="text-gray-600"><span class="font-semibold">Password:</span> password</p>
-                        </div>
-                        <a href="{{ route('login') }}" class="block w-full text-center px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-xs font-medium">
-                            Login as Admin
-                        </a>
-                    </div>
-
-                    <!-- Teacher Demo -->
-                    <div class="bg-white rounded-lg shadow-md p-5 border-t-4 border-green-600 hover:shadow-lg transition">
-                        <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mb-3">
-                            <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"/>
-                            </svg>
-                        </div>
-                        <h3 class="text-base font-bold text-gray-900 mb-2">Teacher Account</h3>
-                        <div class="space-y-1 text-xs mb-3">
-                            <p class="text-gray-600"><span class="font-semibold">Email:</span> teacher@demo.com</p>
-                            <p class="text-gray-600"><span class="font-semibold">Password:</span> password</p>
-                        </div>
-                        <a href="{{ route('login') }}" class="block w-full text-center px-3 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition text-xs font-medium">
-                            Login as Teacher
-                        </a>
-                    </div>
-
-                    <!-- Student Demo -->
-                    <div class="bg-white rounded-lg shadow-md p-5 border-t-4 border-purple-600 hover:shadow-lg transition">
-                        <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mb-3">
-                            <svg class="w-5 h-5 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
-                            </svg>
-                        </div>
-                        <h3 class="text-base font-bold text-gray-900 mb-2">Student Account</h3>
-                        <div class="space-y-1 text-xs mb-3">
-                            <p class="text-gray-600"><span class="font-semibold">Email:</span> student@demo.com</p>
-                            <p class="text-gray-600"><span class="font-semibold">Password:</span> password</p>
-                        </div>
-                        <a href="{{ route('login') }}" class="block w-full text-center px-3 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition text-xs font-medium">
-                            Login as Student
-                        </a>
-                    </div>
-
-                    <!-- Parent Demo -->
-                    <div class="bg-white rounded-lg shadow-md p-5 border-t-4 border-orange-600 hover:shadow-lg transition">
-                        <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mb-3">
-                            <svg class="w-5 h-5 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
-                            </svg>
-                        </div>
-                        <h3 class="text-base font-bold text-gray-900 mb-2">Parent Account</h3>
-                        <div class="space-y-1 text-xs mb-3">
-                            <p class="text-gray-600"><span class="font-semibold">Email:</span> parent@demo.com</p>
-                            <p class="text-gray-600"><span class="font-semibold">Password:</span> password</p>
-                        </div>
-                        <a href="{{ route('login') }}" class="block w-full text-center px-3 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition text-xs font-medium">
-                            Login as Parent
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="mt-8 text-center">
-                    <p class="text-gray-600 mb-3 text-sm">Or create your own account to get started</p>
-                    <a href="{{ route('register') }}" class="inline-flex items-center px-6 py-2.5 font-medium text-white bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg hover:shadow-lg transition">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
-                        </svg>
-                        Create New Account
-                    </a>
-                </div>
-            </div>
-        </section>
-
         <!-- Contact Us Section -->
         <section id="contact" class="py-16 bg-gradient-to-b from-white to-gray-100">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1385,7 +1358,7 @@
                                     <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Phone Number *</label>
                                     <input type="tel" id="phone" name="phone" required 
                                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                                           placeholder="+91 98765 43210">
+                                           placeholder="+880 1XXXXXXXXX">
                                 </div>
                                 <div>
                                     <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Subject *</label>
@@ -1434,7 +1407,7 @@
                                     </div>
                                     <div>
                                         <h4 class="font-semibold text-lg mb-1">Our Address</h4>
-                                        <p class="text-blue-100">123 School Street, Education City<br>District - 123456, State, India</p>
+                                        <p class="text-blue-100">123 School Street, Education City<br>District - Kushtia, Khulna, Bangladesh</p>
                                     </div>
                                 </div>
 
@@ -1446,7 +1419,7 @@
                                     </div>
                                     <div>
                                         <h4 class="font-semibold text-lg mb-1">Phone</h4>
-                                        <p class="text-blue-100">+91 - (123) - 4567890<br>+91 - (098) - 7654321</p>
+                                        <p class="text-blue-100">+880 1980 732978<br>+880 1758 805840</p>
                                     </div>
                                 </div>
 
@@ -1471,7 +1444,7 @@
                                     </div>
                                     <div>
                                         <h4 class="font-semibold text-lg mb-1">Office Hours</h4>
-                                        <p class="text-blue-100">Monday - Friday: 8:00 AM - 5:00 PM<br>Saturday: 8:00 AM - 2:00 PM<br>Sunday: Closed</p>
+                                        <p class="text-blue-100">Saturday - Thursday: 8:00 AM - 5:00 PM<br>Friday: Closed</p>
                                     </div>
                                 </div>
                             </div>
@@ -1503,20 +1476,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Map Card -->
-                        <div class="bg-white rounded-xl shadow-xl p-4">
-                            <div class="aspect-w-16 aspect-h-9">
-                                <iframe 
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.835253576489!2d144.95373631531677!3d-37.817209742021234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d43f1f3ed5f%3A0x5045675218ce6e0!2sMelbourne%20VIC%2C%20Australia!5e0!3m2!1sen!2sin!4v1234567890123!5m2!1sen!2sin" 
-                                    width="100%" 
-                                    height="250" 
-                                    style="border:0; border-radius: 0.5rem;" 
-                                    allowfullscreen="" 
-                                    loading="lazy">
-                                </iframe>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -1527,7 +1486,7 @@
             <!-- Quick Links -->
             <div class="bg-gray-800 py-12">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="grid md:grid-cols-4 gap-8">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
                         <div>
                             <h4 class="text-lg font-bold mb-4 text-blue-400">Quick Links</h4>
                             <ul class="space-y-2 text-sm">
@@ -1606,7 +1565,7 @@
             <div class="bg-gray-900 py-6 border-t border-gray-700">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <p class="text-center text-sm text-gray-400">
-                        Copyright © {{ date('Y') }}, dacsms.com. All Rights Reserved
+                        Copyright © {{ date('Y') }}, School. All Rights Reserved
                     </p>
                 </div>
             </div>

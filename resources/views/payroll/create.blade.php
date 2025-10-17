@@ -60,7 +60,7 @@
                                             {{ $allowance->component_name }}
                                         </label>
                                     </div>
-                                    <span class="text-sm text-green-600 font-semibold">+₹{{ number_format($allowance->amount, 2) }}</span>
+                                    <span class="text-sm text-green-600 font-semibold">+৳{{ number_format($allowance->amount, 2) }}</span>
                                 </div>
                                 @endforeach
                             </div>
@@ -78,7 +78,7 @@
                                             {{ $deduction->component_name }}
                                         </label>
                                     </div>
-                                    <span class="text-sm text-red-600 font-semibold">-₹{{ number_format($deduction->amount, 2) }}</span>
+                                    <span class="text-sm text-red-600 font-semibold">-৳{{ number_format($deduction->amount, 2) }}</span>
                                 </div>
                                 @endforeach
                             </div>
@@ -88,20 +88,20 @@
                         <div class="mb-6 p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg">
                             <div class="flex justify-between mb-2">
                                 <span class="text-sm text-gray-700 dark:text-gray-300">Basic Salary:</span>
-                                <span class="text-sm font-semibold" id="summary_basic">₹0.00</span>
+                                <span class="text-sm font-semibold" id="summary_basic">৳0.00</span>
                             </div>
                             <div class="flex justify-between mb-2">
                                 <span class="text-sm text-green-600">Total Allowances:</span>
-                                <span class="text-sm font-semibold text-green-600" id="summary_allowances">₹0.00</span>
+                                <span class="text-sm font-semibold text-green-600" id="summary_allowances">৳0.00</span>
                             </div>
                             <div class="flex justify-between mb-2">
                                 <span class="text-sm text-red-600">Total Deductions:</span>
-                                <span class="text-sm font-semibold text-red-600" id="summary_deductions">₹0.00</span>
+                                <span class="text-sm font-semibold text-red-600" id="summary_deductions">৳0.00</span>
                             </div>
                             <hr class="my-2 border-gray-300 dark:border-gray-600">
                             <div class="flex justify-between">
                                 <span class="text-base font-bold text-gray-900 dark:text-gray-100">Net Salary:</span>
-                                <span class="text-base font-bold text-indigo-600" id="summary_net">₹0.00</span>
+                                <span class="text-base font-bold text-indigo-600" id="summary_net">৳0.00</span>
                             </div>
                         </div>
 
@@ -149,10 +149,10 @@
             
             const net = basic + allowances - deductions;
             
-            document.getElementById('summary_basic').textContent = '₹' + basic.toFixed(2);
-            document.getElementById('summary_allowances').textContent = '₹' + allowances.toFixed(2);
-            document.getElementById('summary_deductions').textContent = '₹' + deductions.toFixed(2);
-            document.getElementById('summary_net').textContent = '₹' + net.toFixed(2);
+            document.getElementById('summary_basic').textContent = '৳' + basic.toFixed(2);
+            document.getElementById('summary_allowances').textContent = '৳' + allowances.toFixed(2);
+            document.getElementById('summary_deductions').textContent = '৳' + deductions.toFixed(2);
+            document.getElementById('summary_net').textContent = '৳' + net.toFixed(2);
         }
     </script>
 </x-app-layout>

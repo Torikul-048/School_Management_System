@@ -420,6 +420,37 @@
 </div>
 @endrole
 
+{{-- News Management --}}
+@role('Super Admin|Admin|Librarian')
+<a href="{{ route('news.index') }}" class="flex items-center space-x-3 px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700 {{ request()->routeIs('news.*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">
+    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M2 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 002 2H4a2 2 0 01-2-2V5zm3 1h6v4H5V6zm6 6H5v2h6v-2z" clip-rule="evenodd"/>
+        <path d="M15 7h1a2 2 0 012 2v5.5a1.5 1.5 0 01-3 0V7z"/>
+    </svg>
+    <span class="font-medium">News Management</span>
+</a>
+@endrole
+
+{{-- Events Management --}}
+@role('Super Admin|Admin|Librarian')
+<a href="{{ route('events.index') }}" class="flex items-center space-x-3 px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700 {{ request()->routeIs('events.*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">
+    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+    </svg>
+    <span class="font-medium">Events Management</span>
+</a>
+@endrole
+
+{{-- Notice Board Management --}}
+@role('Super Admin|Admin|Teacher|Librarian|Accountant')
+<a href="{{ route('notices.index') }}" class="flex items-center space-x-3 px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700 {{ request()->routeIs('notices.*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">
+    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/>
+    </svg>
+    <span class="font-medium">Notice Board</span>
+</a>
+@endrole
+
 {{-- Reports --}}
 @role('Super Admin|Admin')
 <a href="{{ route('reports.index') }}" class="flex items-center space-x-3 px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700 {{ request()->routeIs('reports*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">

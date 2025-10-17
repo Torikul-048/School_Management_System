@@ -18,9 +18,16 @@ class TimetableController extends Controller
      */
     public function index(Request $request)
     {
-        $classes = Classes::with('sections')->get();
-        $sections = Section::all();
-        $academicYears = AcademicYear::where('is_current', true)->get();
+        $classes = Classes::with('sections')->orderByRaw("CAST(numeric_name AS INTEGER)")->orderBy('name')->get();
+        
+        // Only load sections if a class is selected, otherwise empty collection
+        if ($request->filled('class_id')) {
+            $sections = Section::where('class_id', $request->class_id)->orderBy('name')->get();
+        } else {
+            $sections = collect(); // Empty collection when no class selected
+        }
+        
+        $academicYears = AcademicYear::where('is_current', true)->orderBy('year', 'desc')->get();
         
         $timetables = collect();
         $selectedClass = null;
@@ -28,7 +35,6 @@ class TimetableController extends Controller
 
         if ($request->has('class_id') && $request->class_id != '') {
             $selectedClass = Classes::find($request->class_id);
-            $sections = Section::where('class_id', $request->class_id)->get();
             
             $query = Timetable::with(['class', 'section', 'subject', 'teacher'])
                 ->where('class_id', $request->class_id);
@@ -63,11 +69,11 @@ class TimetableController extends Controller
      */
     public function create(Request $request)
     {
-        $classes = Classes::all();
-        $sections = Section::all();
+        $classes = Classes::orderByRaw("CAST(numeric_name AS INTEGER)")->orderBy('name')->get();
+        $sections = Section::orderBy('name')->get();
         $subjects = Subject::all();
         $teachers = Teacher::all();
-        $academicYears = AcademicYear::where('is_current', true)->get();
+        $academicYears = AcademicYear::where('is_current', true)->orderBy('year', 'desc')->get();
 
         $selectedClass = $request->has('class_id') ? Classes::find($request->class_id) : null;
 
@@ -121,11 +127,11 @@ class TimetableController extends Controller
      */
     public function edit(Timetable $timetable)
     {
-        $classes = Classes::all();
-        $sections = Section::where('class_id', $timetable->class_id)->get();
+        $classes = Classes::orderByRaw("CAST(numeric_name AS INTEGER)")->orderBy('name')->get();
+        $sections = Section::where('class_id', $timetable->class_id)->orderBy('name')->get();
         $subjects = Subject::all();
         $teachers = Teacher::all();
-        $academicYears = AcademicYear::all();
+        $academicYears = AcademicYear::orderBy('year', 'desc')->get();
 
         return view('academics.timetable.edit', compact(
             'timetable',

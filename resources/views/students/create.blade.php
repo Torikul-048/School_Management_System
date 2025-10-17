@@ -145,7 +145,7 @@
                 <x-form.input 
                     label="Country *" 
                     name="country" 
-                    :value="old('country', 'India')" 
+                    :value="old('country', 'Bangladesh')" 
                     required 
                 />
                 

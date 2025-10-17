@@ -65,13 +65,18 @@
                 </label>
                 <select name="section_id" id="section_id" 
                     class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
-                    onchange="this.form.submit()">
+                    onchange="this.form.submit()"
+                    {{ !request('class_id') ? 'disabled' : '' }}>
                     <option value="">All Sections</option>
-                    @foreach($sections as $section)
-                        <option value="{{ $section->id }}" {{ request('section_id') == $section->id ? 'selected' : '' }}>
-                            {{ $section->name }}
-                        </option>
-                    @endforeach
+                    @if($sections->count() > 0)
+                        @foreach($sections as $section)
+                            <option value="{{ $section->id }}" {{ request('section_id') == $section->id ? 'selected' : '' }}>
+                                {{ $section->name }}
+                            </option>
+                        @endforeach
+                    @else
+                        <option value="" disabled>Select a class first</option>
+                    @endif
                 </select>
             </div>
 

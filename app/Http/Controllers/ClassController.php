@@ -29,8 +29,9 @@ class ClassController extends Controller
             $query->where('academic_year_id', $request->academic_year_id);
         }
 
-        $classes = $query->latest()->paginate(15);
-        $academicYears = AcademicYear::all();
+        // Sort by numeric name (1, 2, 3... 10) instead of creation date
+        $classes = $query->orderByRaw("CAST(numeric_name AS INTEGER)")->orderBy('name')->paginate(15);
+        $academicYears = AcademicYear::orderBy('year', 'desc')->get();
         $teachers = Teacher::all();
 
         return view('academics.classes.index', compact('classes', 'academicYears', 'teachers'));
@@ -41,7 +42,7 @@ class ClassController extends Controller
      */
     public function create()
     {
-        $academicYears = AcademicYear::all();
+        $academicYears = AcademicYear::orderBy('year', 'desc')->get();
         $teachers = Teacher::all();
         
         return view('academics.classes.create', compact('academicYears', 'teachers'));
@@ -96,7 +97,7 @@ class ClassController extends Controller
      */
     public function edit(Classes $class)
     {
-        $academicYears = AcademicYear::all();
+        $academicYears = AcademicYear::orderBy('year', 'desc')->get();
         $teachers = Teacher::all();
         
         return view('academics.classes.edit', compact('class', 'academicYears', 'teachers'));

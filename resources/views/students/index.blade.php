@@ -30,7 +30,7 @@
             </div>
             
             <div>
-                <x-form.select name="class_id" label="Class">
+                <x-form.select name="class_id" label="Class" placeholder="">
                     <option value="">All Classes</option>
                     @foreach($classes as $class)
                         <option value="{{ $class->id }}" {{ request('class_id') == $class->id ? 'selected' : '' }}>
@@ -41,18 +41,18 @@
             </div>
 
             <div>
-                <x-form.select name="section_id" label="Section">
+                <x-form.select name="section_name" label="Section" placeholder="">
                     <option value="">All Sections</option>
                     @foreach($sections as $section)
-                        <option value="{{ $section->id }}" {{ request('section_id') == $section->id ? 'selected' : '' }}>
-                            {{ $section->name }}
+                        <option value="{{ $section->name }}" {{ request('section_name') == $section->name ? 'selected' : '' }}>
+                            Section {{ $section->name }}
                         </option>
                     @endforeach
                 </x-form.select>
             </div>
 
             <div>
-                <x-form.select name="status" label="Status">
+                <x-form.select name="status" label="Status" placeholder="">
                     <option value="">All Status</option>
                     <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Active</option>
                     <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>

@@ -176,15 +176,33 @@
                                     <div class="flex items-center">
                                         <div class="flex-shrink-0 h-10 w-10">
                                             <div class="h-10 w-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">
-                                                {{ substr($request->student->first_name, 0, 1) }}{{ substr($request->student->last_name, 0, 1) }}
+                                                @if($request->leaveable)
+                                                    {{ substr($request->leaveable->first_name ?? '', 0, 1) }}{{ substr($request->leaveable->last_name ?? '', 0, 1) }}
+                                                @else
+                                                    ?
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="ml-4">
                                             <div class="text-sm font-medium text-gray-900 dark:text-white">
-                                                {{ $request->student->first_name }} {{ $request->student->last_name }}
+                                                @if($request->leaveable)
+                                                    {{ $request->leaveable->first_name }} {{ $request->leaveable->last_name }}
+                                                @else
+                                                    Unknown User
+                                                @endif
                                             </div>
                                             <div class="text-sm text-gray-500 dark:text-gray-400">
-                                                {{ $request->student->admission_number }}
+                                                @if($request->leaveable)
+                                                    @if($request->leaveable_type == 'App\Models\Student')
+                                                        {{ $request->leaveable->admission_number ?? 'N/A' }}
+                                                    @elseif($request->leaveable_type == 'App\Models\Teacher')
+                                                        {{ $request->leaveable->employee_id ?? 'N/A' }}
+                                                    @else
+                                                        N/A
+                                                    @endif
+                                                @else
+                                                    N/A
+                                                @endif
                                             </div>
                                         </div>
                                     </div>

@@ -31,7 +31,7 @@ class SubjectController extends Controller
         }
 
         $subjects = $query->latest()->paginate(15);
-        $classes = Classes::all();
+        $classes = Classes::orderByRaw("CAST(numeric_name AS INTEGER)")->orderBy('name')->get();
         $teachers = Teacher::all();
 
         return view('academics.subjects.index', compact('subjects', 'classes', 'teachers'));
@@ -42,7 +42,7 @@ class SubjectController extends Controller
      */
     public function create()
     {
-        $classes = Classes::all();
+        $classes = Classes::orderByRaw("CAST(numeric_name AS INTEGER)")->orderBy('name')->get();
         $teachers = Teacher::all();
         
         return view('academics.subjects.create', compact('classes', 'teachers'));
@@ -86,7 +86,7 @@ class SubjectController extends Controller
      */
     public function edit(Subject $subject)
     {
-        $classes = Classes::all();
+        $classes = Classes::orderByRaw("CAST(numeric_name AS INTEGER)")->orderBy('name')->get();
         $teachers = Teacher::all();
         
         return view('academics.subjects.edit', compact('subject', 'classes', 'teachers'));

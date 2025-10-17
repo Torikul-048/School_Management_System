@@ -35,7 +35,7 @@ class ExamController extends Controller
         }
 
         $exams = $query->orderBy('start_date', 'desc')->paginate(15);
-        $academicYears = AcademicYear::all();
+        $academicYears = AcademicYear::orderBy('year', 'desc')->get();
 
         return view('exams.index', compact('exams', 'academicYears'));
     }
@@ -45,7 +45,7 @@ class ExamController extends Controller
      */
     public function create()
     {
-        $academicYears = AcademicYear::where('is_current', true)->get();
+        $academicYears = AcademicYear::where('is_current', true)->orderBy('year', 'desc')->get();
         return view('exams.create', compact('academicYears'));
     }
 
@@ -79,7 +79,7 @@ class ExamController extends Controller
     public function show(Exam $exam)
     {
         $exam->load(['academicYear', 'schedules.class', 'schedules.subject']);
-        $classes = Classes::all();
+        $classes = Classes::orderByRaw("CAST(numeric_name AS INTEGER)")->orderBy('name')->get();
         $subjects = Subject::all();
 
         return view('exams.show', compact('exam', 'classes', 'subjects'));
@@ -90,7 +90,7 @@ class ExamController extends Controller
      */
     public function edit(Exam $exam)
     {
-        $academicYears = AcademicYear::all();
+        $academicYears = AcademicYear::orderBy('year', 'desc')->get();
         return view('exams.edit', compact('exam', 'academicYears'));
     }
 

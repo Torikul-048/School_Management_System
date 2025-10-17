@@ -32,7 +32,7 @@ return new class extends Migration
             // Department field
             $table->string('department', 100)->nullable()->after('experience_years');
             
-            // Bank IFSC code for Indian banks
+            // Bank routing number for Bangladesh banks
             $table->string('bank_ifsc_code', 20)->nullable()->after('bank_account');
             $table->renameColumn('bank_account', 'bank_account_number');
             

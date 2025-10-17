@@ -62,7 +62,7 @@
                                 @forelse($allowances as $allowance)
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">{{ $allowance->component_name }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">₹{{ number_format($allowance->amount, 2) }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">৳{{ number_format($allowance->amount, 2) }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $allowance->is_active ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
                                             {{ $allowance->is_active ? 'Active' : 'Inactive' }}
@@ -107,7 +107,7 @@
                                 @forelse($deductions as $deduction)
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">{{ $deduction->component_name }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-red-600">₹{{ number_format($deduction->amount, 2) }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-red-600">৳{{ number_format($deduction->amount, 2) }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $deduction->is_active ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
                                             {{ $deduction->is_active ? 'Active' : 'Inactive' }}

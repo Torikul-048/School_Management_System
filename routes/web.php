@@ -8,10 +8,12 @@ use App\Http\Controllers\ScholarshipController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\FinanceReportController;
+use App\Models\News;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome-new');
+    $latestNews = News::active()->latest()->take(10)->get();
+    return view('welcome-new', compact('latestNews'));
 });
 
 // Dashboard Routes with Role-based Access
@@ -49,6 +51,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::delete('/profile/avatar', [ProfileController::class, 'removeAvatar'])->name('profile.avatar.remove');
+    
+    // Global Search
+    Route::get('/search', [App\Http\Controllers\SearchController::class, 'index'])->name('search');
 });
 
 // Student Management Routes
@@ -227,6 +232,9 @@ Route::middleware(['auth', 'role:Admin|Accountant'])->group(function () {
 // Continue Admin-only routes
 Route::middleware(['auth', 'role:Admin|Librarian'])->group(function () {
     
+    // News Management
+    Route::resource('news', App\Http\Controllers\NewsController::class);
+    
     // Phase 8: Library Management Module
     // Library Dashboard
     Route::get('library/dashboard', [App\Http\Controllers\LibraryController::class, 'dashboard'])->name('library.dashboard');
@@ -277,9 +285,9 @@ Route::middleware(['auth', 'role:Admin|Librarian'])->group(function () {
     
     // Notices
     Route::resource('notices', App\Http\Controllers\NoticeController::class);
-    Route::post('notices/{notice}/pin', [App\Http\Controllers\NoticeController::class, 'pin'])->name('notices.pin');
-    Route::post('notices/{notice}/unpin', [App\Http\Controllers\NoticeController::class, 'unpin'])->name('notices.unpin');
-    Route::post('notices/{notice}/archive', [App\Http\Controllers\NoticeController::class, 'archive'])->name('notices.archive');
+    Route::patch('notices/{notice}/pin', [App\Http\Controllers\NoticeController::class, 'pin'])->name('notices.pin');
+    Route::patch('notices/{notice}/unpin', [App\Http\Controllers\NoticeController::class, 'unpin'])->name('notices.unpin');
+    Route::patch('notices/{notice}/archive', [App\Http\Controllers\NoticeController::class, 'archive'])->name('notices.archive');
     
     // Announcements - Admin Only (Create, Edit, Delete)
     Route::get('announcements/create', [App\Http\Controllers\AnnouncementController::class, 'create'])->name('announcements.create');

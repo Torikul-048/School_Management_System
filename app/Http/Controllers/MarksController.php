@@ -177,7 +177,7 @@ class MarksController extends Controller
                 ->get();
         }
 
-        $classes = Classes::all();
+        $classes = Classes::orderByRaw("CAST(numeric_name AS INTEGER)")->orderBy('name')->get();
 
         return view('marks.report-card', compact('exams', 'students', 'classes', 'reportData'));
     }

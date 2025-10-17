@@ -20,8 +20,8 @@ class AttendanceController extends Controller
      */
     public function index(Request $request)
     {
-        $classes = Classes::with('sections')->get();
-        $sections = Section::all();
+        $classes = Classes::with('sections')->orderByRaw("CAST(numeric_name AS INTEGER)")->orderBy('name')->get();
+        $sections = Section::orderBy('name')->get();
         $subjects = Subject::all();
         
         // Initialize with empty paginator

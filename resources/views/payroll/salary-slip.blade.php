@@ -55,17 +55,17 @@
                             <div class="space-y-2">
                                 <div class="flex justify-between">
                                     <span class="text-gray-700">Basic Salary</span>
-                                    <span class="font-semibold">₹{{ number_format($payroll->basic_salary, 2) }}</span>
+                                    <span class="font-semibold">৳{{ number_format($payroll->basic_salary, 2) }}</span>
                                 </div>
                                 @foreach($payroll->items->where('type', 'allowance') as $item)
                                 <div class="flex justify-between">
                                     <span class="text-gray-700 text-sm">{{ $item->component_name }}</span>
-                                    <span class="text-sm font-semibold">₹{{ number_format($item->amount, 2) }}</span>
+                                    <span class="text-sm font-semibold">৳{{ number_format($item->amount, 2) }}</span>
                                 </div>
                                 @endforeach
                                 <div class="flex justify-between pt-2 border-t font-bold">
                                     <span>Total Earnings</span>
-                                    <span class="text-green-600">₹{{ number_format($payroll->basic_salary + $payroll->total_allowances, 2) }}</span>
+                                    <span class="text-green-600">৳{{ number_format($payroll->basic_salary + $payroll->total_allowances, 2) }}</span>
                                 </div>
                             </div>
                         </div>
@@ -77,14 +77,14 @@
                                 @forelse($payroll->items->where('type', 'deduction') as $item)
                                 <div class="flex justify-between">
                                     <span class="text-gray-700 text-sm">{{ $item->component_name }}</span>
-                                    <span class="text-sm font-semibold">₹{{ number_format($item->amount, 2) }}</span>
+                                    <span class="text-sm font-semibold">৳{{ number_format($item->amount, 2) }}</span>
                                 </div>
                                 @empty
                                 <p class="text-sm text-gray-500">No deductions</p>
                                 @endforelse
                                 <div class="flex justify-between pt-2 border-t font-bold">
                                     <span>Total Deductions</span>
-                                    <span class="text-red-600">₹{{ number_format($payroll->total_deductions, 2) }}</span>
+                                    <span class="text-red-600">৳{{ number_format($payroll->total_deductions, 2) }}</span>
                                 </div>
                             </div>
                         </div>
@@ -94,7 +94,7 @@
                     <div class="mt-6 pt-6 border-t-2 border-indigo-600">
                         <div class="flex justify-between items-center">
                             <span class="text-xl font-bold text-gray-900">Net Salary</span>
-                            <span class="text-3xl font-bold text-indigo-600">₹{{ number_format($payroll->net_salary, 2) }}</span>
+                            <span class="text-3xl font-bold text-indigo-600">৳{{ number_format($payroll->net_salary, 2) }}</span>
                         </div>
                         <p class="text-sm text-gray-600 mt-2">
                             In Words: <span class="font-semibold">{{ ucwords(\NumberFormatter::create('en_IN', \NumberFormatter::SPELLOUT)->format($payroll->net_salary)) }} Rupees Only</span>
