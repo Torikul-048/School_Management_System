@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>School Management System - Excellence in Education</title>
     
+    <!-- Favicon -->
+    <link rel="icon" href="{{ asset('images/logo.svg') }}" type="image/svg+xml">
+    <link rel="alternate icon" href="{{ asset('images/logo.svg') }}" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="{{ asset('images/logo.svg') }}">
+    <meta name="msapplication-TileImage" content="{{ asset('images/logo.svg') }}">
+    
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap" rel="stylesheet" />
@@ -14,11 +20,16 @@
     
     <style>
         @keyframes scroll-left {
-            0% { transform: translateX(100%); }
+            0% { transform: translateX(35%); }
             100% { transform: translateX(-100%); }
         }
         .animate-scroll {
-            animation: scroll-left 30s linear infinite;
+            animation: scroll-left 40s linear infinite;
+            display: inline-block;
+            will-change: transform;
+        }
+        .animate-scroll:hover {
+            animation-play-state: paused;
         }
         
         /* Custom Scrollbar Styles */
@@ -48,7 +59,17 @@
             </div>
             <div class="flex-1 overflow-hidden ml-4">
                 <div class="animate-scroll whitespace-nowrap">
-                    <span class="inline-block">Welcome to Our School - Excellence in Education • Admissions Open for Class 1 to Class 10 (Academic Year 2024-25) • Annual Sports Day on December 20th • Parent-Teacher Meeting Next Week • New Computer Lab Inaugurated • Science Fair Registration Open • Excellence in Education is the foundation of success •</span>
+                    @if(isset($latestNews) && $latestNews->count() > 0)
+                        @foreach($latestNews as $news)
+                            <span class="inline-block">{{ $news->title }} • </span>
+                        @endforeach
+                        {{-- Repeat for continuous scroll --}}
+                        @foreach($latestNews as $news)
+                            <span class="inline-block">{{ $news->title }} • </span>
+                        @endforeach
+                    @else
+                        <span class="inline-block">Welcome to School Management System - Excellence in Education • Admissions Open for Class 1 to Class 10 (Academic Year 2024-25) • Annual Sports Day on December 20th • Parent-Teacher Meeting Next Week • New Computer Lab Inaugurated • Science Fair Registration Open • Excellence in Education is the foundation of success • </span>
+                    @endif
                 </div>
             </div>
         </div>
@@ -62,13 +83,9 @@
                 <div class="flex justify-between items-center h-20">
                     <!-- Logo -->
                     <div class="flex items-center space-x-3">
-                        <div class="w-14 h-14 bg-gradient-to-br from-green-600 to-green-700 rounded-lg flex items-center justify-center shadow-lg">
-                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3z"/>
-                            </svg>
-                        </div>
+                        <img src="{{ asset('images/logo.svg') }}" alt="School Logo" class="w-14 h-14 rounded-lg shadow-lg">
                         <div>
-                            <h1 class="text-xl font-bold text-gray-900 uppercase tracking-wide">MY SCHOOL</h1>
+                            <h1 class="text-xl font-bold text-gray-900 uppercase tracking-wide">School Management System</h1>
                             <p class="text-xs text-gray-600 font-medium">Excellence in Education</p>
                         </div>
                     </div>
@@ -1571,5 +1588,17 @@
             </div>
         </footer>
     </div>
+
+    <script>
+        // News Ticker - Start immediately on page load
+        (function() {
+            const ticker = document.querySelector('.animate-scroll');
+            if (ticker) {
+                // Clone content for seamless continuous loop
+                const tickerContent = ticker.innerHTML;
+                ticker.innerHTML = tickerContent + ' ' + tickerContent;
+            }
+        })();
+    </script>
 </body>
 </html>

@@ -131,9 +131,15 @@ class TeacherPortalController extends Controller
             ->pluck('class_id')
             ->unique();
         
-        $students = Student::whereIn('class_id', $classIds)
-            ->with(['class', 'user'])
-            ->paginate(20);
+        // If teacher has no subject assignments, show all students
+        if ($classIds->isEmpty()) {
+            $students = Student::with(['class', 'user'])
+                ->paginate(20);
+        } else {
+            $students = Student::whereIn('class_id', $classIds)
+                ->with(['class', 'user'])
+                ->paginate(20);
+        }
         
         return view('teacher.students.index', compact('teacher', 'students'));
     }

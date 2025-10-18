@@ -45,6 +45,28 @@ class MarksController extends Controller
             ->with(['class', 'subject'])
             ->get();
         
+        // If teacher has no subject assignments, show all classes and subjects for demo/admin purposes
+        if ($assignments->isEmpty()) {
+            $assignments = collect();
+            $allClasses = Classes::orderByRaw("CAST(numeric_name AS INTEGER)")
+                ->orderBy('name')
+                ->with('section')
+                ->get();
+            $allSubjects = Subject::all();
+            
+            // Create pseudo-assignments for display
+            foreach ($allClasses as $class) {
+                foreach ($allSubjects as $subject) {
+                    $assignment = new SubjectAssignment();
+                    $assignment->class_id = $class->id;
+                    $assignment->subject_id = $subject->id;
+                    $assignment->class = $class;
+                    $assignment->subject = $subject;
+                    $assignments->push($assignment);
+                }
+            }
+        }
+        
         $exams = Exam::where('status', 'active')->get();
         
         $students = collect();

@@ -27,7 +27,17 @@ class AttendanceController extends Controller
             ->pluck('class_id')
             ->unique();
         
-        $classes = Classes::whereIn('id', $classIds)->get();
+        // If teacher has no subject assignments, get all classes
+        if ($classIds->isEmpty()) {
+            $classes = Classes::orderByRaw("CAST(numeric_name AS INTEGER)")
+                ->orderBy('name')
+                ->get();
+        } else {
+            $classes = Classes::whereIn('id', $classIds)
+                ->orderByRaw("CAST(numeric_name AS INTEGER)")
+                ->orderBy('name')
+                ->get();
+        }
         
         $recentAttendance = Attendance::whereIn('class_id', $classIds)
             ->where('date', '>=', now()->subDays(7))
@@ -47,7 +57,17 @@ class AttendanceController extends Controller
             ->pluck('class_id')
             ->unique();
         
-        $classes = Classes::whereIn('id', $classIds)->get();
+        // If teacher has no subject assignments, get all classes
+        if ($classIds->isEmpty()) {
+            $classes = Classes::orderByRaw("CAST(numeric_name AS INTEGER)")
+                ->orderBy('name')
+                ->get();
+        } else {
+            $classes = Classes::whereIn('id', $classIds)
+                ->orderByRaw("CAST(numeric_name AS INTEGER)")
+                ->orderBy('name')
+                ->get();
+        }
         
         $students = collect();
         $selectedClass = null;
@@ -56,7 +76,8 @@ class AttendanceController extends Controller
         if ($request->has('class_id')) {
             $selectedClass = Classes::find($request->class_id);
             
-            if ($selectedClass && $classIds->contains($selectedClass->id)) {
+            // Allow access if teacher has no assignments OR if class is in their assigned classes
+            if ($selectedClass && ($classIds->isEmpty() || $classIds->contains($selectedClass->id))) {
                 $students = Student::where('class_id', $selectedClass->id)
                     ->where('status', 'active')
                     ->with('user')
@@ -88,7 +109,11 @@ class AttendanceController extends Controller
         ]);
         
         // Verify teacher has access to this class
-        $hasAccess = SubjectAssignment::where('teacher_id', $teacher->id)
+        $classIds = SubjectAssignment::where('teacher_id', $teacher->id)
+            ->pluck('class_id')
+            ->unique();
+            
+        $hasAccess = $classIds->isEmpty() || SubjectAssignment::where('teacher_id', $teacher->id)
             ->where('class_id', $validated['class_id'])
             ->exists();
         
@@ -129,7 +154,17 @@ class AttendanceController extends Controller
             ->pluck('class_id')
             ->unique();
         
-        $classes = Classes::whereIn('id', $classIds)->get();
+        // If teacher has no subject assignments, get all classes
+        if ($classIds->isEmpty()) {
+            $classes = Classes::orderByRaw("CAST(numeric_name AS INTEGER)")
+                ->orderBy('name')
+                ->get();
+        } else {
+            $classes = Classes::whereIn('id', $classIds)
+                ->orderByRaw("CAST(numeric_name AS INTEGER)")
+                ->orderBy('name')
+                ->get();
+        }
         
         $selectedClass = $request->has('class_id') ? Classes::find($request->class_id) : null;
         $startDate = $request->get('start_date', now()->startOfMonth()->format('Y-m-d'));
@@ -137,7 +172,7 @@ class AttendanceController extends Controller
         
         $attendanceData = collect();
         
-        if ($selectedClass && $classIds->contains($selectedClass->id)) {
+        if ($selectedClass && ($classIds->isEmpty() || $classIds->contains($selectedClass->id))) {
             $attendanceData = Attendance::where('class_id', $selectedClass->id)
                 ->whereBetween('date', [$startDate, $endDate])
                 ->with('student')
@@ -156,6 +191,34 @@ class AttendanceController extends Controller
                 });
         }
         
-        return view('teacher.attendance.report', compact('teacher', 'classes', 'selectedClass', 'attendanceData', 'startDate', 'endDate'));
+        // Calculate statistics
+        $statistics = [
+            'present' => 0,
+            'absent' => 0,
+            'late' => 0,
+            'rate' => 0
+        ];
+        
+        if ($attendanceData->isNotEmpty()) {
+            $statistics['present'] = $attendanceData->sum('present');
+            $statistics['absent'] = $attendanceData->sum('absent');
+            $statistics['late'] = $attendanceData->sum('late');
+            $total = $attendanceData->sum('total');
+            $statistics['rate'] = $total > 0 ? round(($statistics['present'] / $total) * 100, 1) : 0;
+        }
+        
+        // Prepare report data for table
+        $reportData = $attendanceData->map(function ($data) {
+            return [
+                'student_name' => $data['student']->user->name ?? 'Unknown',
+                'class_name' => $data['student']->class->name ?? 'N/A',
+                'present' => $data['present'],
+                'absent' => $data['absent'],
+                'late' => $data['late'],
+                'rate' => $data['percentage']
+            ];
+        })->values();
+        
+        return view('teacher.attendance.report', compact('teacher', 'classes', 'selectedClass', 'statistics', 'reportData', 'startDate', 'endDate'));
     }
 }

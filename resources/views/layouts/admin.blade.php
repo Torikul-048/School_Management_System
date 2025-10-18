@@ -4,7 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Laravel') }} - @yield('title', 'Dashboard')</title>
+    <title>School Management System - @yield('title', 'Dashboard')</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="{{ asset('images/logo.svg') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/logo.svg') }}">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -29,12 +33,10 @@
             @click.away="sidebarOpen = false"
         >
             <!-- Logo -->
-            <div class="flex items-center justify-between h-16 px-6 bg-gradient-to-r from-blue-600 to-blue-700">
-                <a href="{{ route('dashboard') }}" class="flex items-center space-x-2">
-                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3z"/>
-                    </svg>
-                    <span class="text-xl font-bold text-white">School MS</span>
+            <div class="flex items-center justify-between h-16 px-4 bg-gradient-to-r from-blue-600 to-blue-700">
+                <a href="{{ route('dashboard') }}" class="flex items-center space-x-3">
+                    <img src="{{ asset('images/logo.svg') }}" alt="Logo" class="w-10 h-10 rounded-lg">
+                    <span class="text-base font-bold text-white leading-tight">School Management<br>System</span>
                 </a>
                 <button @click="sidebarOpen = false" class="lg:hidden text-white">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

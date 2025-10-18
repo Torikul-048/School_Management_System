@@ -22,7 +22,7 @@
                         <option value="">Choose a class</option>
                         @foreach($classes as $class)
                         <option value="{{ $class->id }}" {{ old('class_id') == $class->id ? 'selected' : '' }}>
-                            {{ $class->name }} - {{ $class->section->name ?? '' }}
+                            {{ $class->name }}
                         </option>
                         @endforeach
                     </select>

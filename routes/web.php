@@ -283,12 +283,6 @@ Route::middleware(['auth', 'role:Admin|Librarian'])->group(function () {
     Route::get('events-calendar', [App\Http\Controllers\EventController::class, 'calendar'])->name('events.calendar');
     Route::get('events/upcoming/list', [App\Http\Controllers\EventController::class, 'upcoming'])->name('events.upcoming');
     
-    // Notices
-    Route::resource('notices', App\Http\Controllers\NoticeController::class);
-    Route::patch('notices/{notice}/pin', [App\Http\Controllers\NoticeController::class, 'pin'])->name('notices.pin');
-    Route::patch('notices/{notice}/unpin', [App\Http\Controllers\NoticeController::class, 'unpin'])->name('notices.unpin');
-    Route::patch('notices/{notice}/archive', [App\Http\Controllers\NoticeController::class, 'archive'])->name('notices.archive');
-    
     // Announcements - Admin Only (Create, Edit, Delete)
     Route::get('announcements/create', [App\Http\Controllers\AnnouncementController::class, 'create'])->name('announcements.create');
     Route::post('announcements', [App\Http\Controllers\AnnouncementController::class, 'store'])->name('announcements.store');
@@ -297,6 +291,9 @@ Route::middleware(['auth', 'role:Admin|Librarian'])->group(function () {
     Route::delete('announcements/{announcement}', [App\Http\Controllers\AnnouncementController::class, 'destroy'])->name('announcements.destroy');
     Route::post('announcements/{announcement}/pin', [App\Http\Controllers\AnnouncementController::class, 'pin'])->name('announcements.pin');
     Route::post('announcements/{announcement}/unpin', [App\Http\Controllers\AnnouncementController::class, 'unpin'])->name('announcements.unpin');
+    
+    // Gallery Management
+    Route::resource('galleries', App\Http\Controllers\GalleryController::class);
     
     // Complaints
     Route::resource('complaints', App\Http\Controllers\ComplaintController::class);
@@ -315,6 +312,14 @@ Route::middleware(['auth', 'role:Admin|Librarian'])->group(function () {
     Route::get('notification-settings', [App\Http\Controllers\NotificationController::class, 'settings'])->name('notifications.settings');
     Route::patch('notification-settings', [App\Http\Controllers\NotificationController::class, 'updateSettings'])->name('notifications.update-settings');
     Route::get('notifications/unread', [App\Http\Controllers\NotificationController::class, 'unread'])->name('notifications.unread');
+});
+
+// Notice Board Management - Admin, Teacher, Librarian, Accountant
+Route::middleware(['auth', 'role:Admin|Teacher|Librarian|Accountant'])->group(function () {
+    Route::resource('notices', App\Http\Controllers\NoticeController::class);
+    Route::patch('notices/{notice}/pin', [App\Http\Controllers\NoticeController::class, 'pin'])->name('notices.pin');
+    Route::patch('notices/{notice}/unpin', [App\Http\Controllers\NoticeController::class, 'unpin'])->name('notices.unpin');
+    Route::patch('notices/{notice}/archive', [App\Http\Controllers\NoticeController::class, 'archive'])->name('notices.archive');
 });
 
 // Announcements - View Only (All Authenticated Users)

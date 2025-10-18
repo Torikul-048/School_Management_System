@@ -451,6 +451,16 @@
 </a>
 @endrole
 
+{{-- Gallery Management --}}
+@role('Super Admin|Admin')
+<a href="{{ route('galleries.index') }}" class="flex items-center space-x-3 px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700 {{ request()->routeIs('galleries.*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">
+    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/>
+    </svg>
+    <span class="font-medium">Gallery</span>
+</a>
+@endrole
+
 {{-- Reports --}}
 @role('Super Admin|Admin')
 <a href="{{ route('reports.index') }}" class="flex items-center space-x-3 px-4 py-3 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700 {{ request()->routeIs('reports*') ? 'bg-blue-50 dark:bg-gray-700 text-blue-600' : '' }}">
