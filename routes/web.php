@@ -8,6 +8,7 @@ use App\Http\Controllers\ScholarshipController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\FinanceReportController;
+use App\Http\Controllers\ContactController;
 use App\Models\News;
 use Illuminate\Support\Facades\Route;
 
@@ -500,5 +501,17 @@ Route::get('admissions/apply', [AdmissionController::class, 'create'])->name('ad
 Route::get('admissions/create', [AdmissionController::class, 'create'])->name('admissions.create');
 Route::post('admissions/apply', [AdmissionController::class, 'store'])->name('admissions.store');
 Route::get('admissions/success', [AdmissionController::class, 'success'])->name('admissions.success');
+
+// Public Contact Form
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.submit');
+
+// Contact Management - Admin Only
+Route::middleware(['auth', 'role:Admin'])->group(function () {
+    Route::get('contacts', [ContactController::class, 'index'])->name('contacts.index');
+    Route::get('contacts/{contact}', [ContactController::class, 'show'])->name('contacts.show');
+    Route::delete('contacts/{contact}', [ContactController::class, 'destroy'])->name('contacts.destroy');
+    Route::post('contacts/{contact}/mark-read', [ContactController::class, 'markAsRead'])->name('contacts.mark-read');
+    Route::post('contacts/{contact}/mark-replied', [ContactController::class, 'markAsReplied'])->name('contacts.mark-replied');
+});
 
 require __DIR__.'/auth.php';
